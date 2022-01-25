@@ -1,0 +1,24 @@
+                       What we are covering in CS260A 
+                       ------------------------------
+
+In CS260A (Systems Administration), we are covering the following subjects.
+At the end of the list, the approximate time for completion of each subject
+is also provided.
+
+1) Introduction to Linux, and installation.
+2) Introduction to "virtualization", virtual memory, and VirtualBox.
+3) Users and groups.
+4) Startup and services,and systemd.
+5) Package Management.
+6) Account Management.
+7) Storage management, backup and restore and disaster recovery.
+8) Task automation, CRON, Anacron, and the "at" command.
+9) Web Services.
+10) Printer Management, and CUP daemon.
+11) Log Management.
+12) Selinux.
+
+For each subject, we are spending 4 hours (one complete lecture).
+For systemd, and account management, we are designating 10 hours.
+
+ 

@@ -1,0 +1,31 @@
+The following is a list of some useful aliases. Please save these aliases in the
+file 'my_aliases' in your home directory on hills. Then add the following line to your 
+.bashrc file:
+
+[ -f $HOME/my_aliases ] && source $HOME/my_aliases 
+
+
+####################################aliases####################################
+alias  a=alias 
+alias  h='fc -l'
+alias  l=ls
+alias  ll='ls -l'
+alias  lll='ls -lt | head -15'
+alias  root='sudo -s'
+alias  runlevel='who -r'
+alias  ctrl_h='stty erase "^H"'
+alias  ctrl_q='stty erase "^?"'
+alias  shell='grep "`whoami`" /etc/passwd|cut -d: -f7' 
+alias  os='uname -a'
+alias  cmx='chmod +x'
+alias  sd='ls -al | grep "^d" | grep -v "\.\.$" | grep -v "\.$"'
+alias  reset='stty sane; tput sgr0'
+alias  bye='clear; reset;exit'
+alias  logout='clear; reset;exit'
+alias  logoff='clear; reset;exit'
+alias  cls='clear'
+alias  RESET='echo -e "\033[0m"'
+alias  same='ls | grep "^\(.\)\1\1*"'
+alias  ipad="arp `hostname` | cut -d' ' -f2 | tr -d '()'"
+alias  cs260a='cd  /pub/cs/amoghtan/cs260a'
+

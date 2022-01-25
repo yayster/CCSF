@@ -1,0 +1,83 @@
+#!/bin/bash
+
+read -d '' USAGE<<EOF
+
+
+      mkfiles file1 file2 file3 ...
+      OR
+      mkfiles <options> 
+      options are:
+
+      f)   filename        (default is noname)
+      h)   display this help menu
+      n)   number of files (default is 1)
+      s)   size of files   (default is 0)
+      v)   displays created filenames
+     
+      Examples:
+      
+      mkfiles  
+      mkfiles -h 
+      mkfiles -n 20
+      mkfiles -n 40 -s 100  
+      mkfiles -n 40 -s 100 -f junk  
+      mkfiles -n 40 -s 100 -f junk -v 
+      mkfiles myfile hisfile herfile ourfile
+
+EOF
+FILENAME='noname'
+NUMBER_OF_FILES=1
+SIZE_OF_FILES=0
+VERBATIM=0
+REGEX0="^-"
+if [[ $1 =~ ${REGEX0} ]]
+then
+	while getopts hf:n:s:v flag
+	do	
+    	case "${flag}" in
+    	      h) printf "\n      ${USAGE}\n\n" && exit;;
+              f) FILENAME=${OPTARG};;
+              n) NUMBER_OF_FILES=${OPTARG};;
+              s) SIZE_OF_FILES=${OPTARG};;
+	      v) VERBATIM=1
+   	esac
+	done
+else
+	for TEMP_FILENAME in $@
+	do
+		cp /dev/null "${TEMP_FILENAME}"
+	done
+	exit 0
+fi	 
+FILECOUNT=0
+until [ ${FILECOUNT} == ${NUMBER_OF_FILES} ]
+do
+	((FILECOUNT++))
+	TEMP_FILENAME=${FILENAME}${FILECOUNT}
+	if [ ${SIZE_OF_FILES} == 0 ]
+  	then
+		touch ${TEMP_FILENAME}
+	else
+		TEMP_STRING=''
+		CHARACTER_COUNT=0
+		until [ ${CHARACTER_COUNT} == ${SIZE_OF_FILES} ]
+		do
+		((CHARACTER_COUNT++))
+		TEMP_CHAR=127
+		until [ ${TEMP_CHAR} != 127 ]
+		do
+			TEMP_CHAR=$(( $RANDOM %150 + 33 ))
+		done
+		if [[ ${TEMP_CHAR} -ge 175 ]]
+		then
+		    TEMP_CHAR=11
+		fi
+		TEMP_STRING=${TEMP_STRING}$(printf \\$(printf %03o "${TEMP_CHAR}"))
+		done
+		echo -n ${TEMP_STRING} > ${TEMP_FILENAME}
+  	fi
+  if [ ${VERBATIM} == 1 ]
+  then
+	ls -l ${TEMP_FILENAME}
+  fi
+done

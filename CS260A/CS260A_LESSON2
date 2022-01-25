@@ -1,0 +1,101 @@
+You as a sys-admin need to be familiar with several handy commands. Some of these
+commands are:
+find, grep (egrep, fgrep), sed, awk, cut, sort, and so forth.
+I assume you are familiar with these commands.
+
+We are using Linux in CS260A. For your information, hills is loaded with RedHat.
+The silver and copper servers are also running RedHat. If on copper, you type "os",
+it will display all information that you need about your operating system.
+
+There are many different methods that you can convert your own PC or laptop to a
+Linux box. In the following, I will share some of them with you:
+
+1) Deleting your entire hard drive, and install a Linux operating system.
+2) Converting your computer to "dual boot" computer. 
+3) Installing "cygwin".
+4) Installing virtual memory.
+5) Installing Windows Subsystem for Linux (wsl).
+
+Now lets talk about each one of these methods.
+
+1) You can download your favorite Linux operating system to your hard disk, and run
+   it. It will ask you to delete the entire hard disk and install your Linux.
+   Using this approach will delete everything from your hard disk, and installs
+   a fresh version of Linux.
+
+2) In this approach, you need to create another partition (using fdisk or any other
+   tool), and then install your Linux on this newly created partition. From now on,
+   every time you boot your computer, you will be asked to boot to Windows or Linux.
+
+3) Using cygwin, allows you to run Linux-like commands on your Windows. This is one
+   of my favorite approach.
+
+4) One of the most modern approach is installing the virtual machine software.
+   There are several software available, but I highly recommend "virtualBox" by
+   Oracle. In our textbook, one complete chapter is designated for this subject
+   (chapter 3). I highly recommend virtual memory on your computer.
+
+5) On Windows10, you can install Linux. In fact, you are embedding Linux to your
+   Windows10. 
+
+The following sites would help you learn and understand these different approaches:
+
+https://itectec.com/ubuntu/ubuntu-how-to-wipe-up-all-partitions-on-disk-and-do-a-clean-install-of-ubuntu-duplicate/
+
+https://itsfoss.com/guide-install-linux-mint-16-dual-boot-windows/
+
+https://cygwin.com/install.html
+
+https://www.youtube.com/watch?v=8mns5yqMfZk&ab_channel=ProgrammingKnowledge2w
+
+https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+About using the silver and copper servers
+-----------------------------------------
+
+As I explained previously, the silver and copper servers are designated to our course.I am
+the sys-admin of these machines. I have already created accounts for all of you on these
+servers. Please login to silver and copper and change your password ASAP.
+
+The IP address for copper is:  147.144.23.63
+The IP address for silver is:  147.144.23.63
+
+copper: 147.144.23.63
+silver: 147.144.23.64
+
+
+As you see, these 2 servers are under the "subnet" 23. 
+Subnet 23 is part of our LAN, and servers in this subnet are accessible only from
+hills. Therefore the only way that we can access silver and copper is login to hills,
+and then from hills we use "ssh" to login silver and copper.
+
+On silver and copper, your user-id is the same as your user-id on hills, and your
+initial password is set to "changeme". Please use the "passwd" command to change your
+initial password on silver and copper.
+
+I have already made .bash_profile, and .bashrc files for you. 
+Your terminal prompt shows where you currently are. If you switch to another directory,
+you prompt will all be updated.
+There are several colors available. You might type the name of the color in upper case,
+and see your text in that color. For example, if you type "GREEN", the your text will
+be in the green color. 
+There are several useful aliases and functions available. for example:
+
+lll  is displaying the last 10 newly created or newly modified files.
+os   will show you your operating system.
+sd   will show you your directories.
+sc   will show the Linux commands. It accepts regular expressions. For example:
+     sc  "^..$"
+     will show all of the commands that are consist of 2 letters. Or 
+     sc "m*"  
+     will show you all commands begin with the letter "m".
+
+     I hardly recommend you to take a look at the .bash_profile on silver and copper, 
+     and see all of these aliases and functions.
+     You might port some of these or all of these to your hills account. But please
+     make sure you have the backup of your current .bash_profile on hills.
+
+     Typing the "alias" command, will display all of the aliases on your system.
+     Typing the "declare -F" command, will display the names of all of the functions,
+     and typing "declare -f" will display the implementations of all of these 
+     commands.

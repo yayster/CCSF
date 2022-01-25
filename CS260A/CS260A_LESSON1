@@ -1,0 +1,70 @@
+Linux Distributions
+-------------------
+
+A Linux distribution, often shortened to Linux distro, is an operating system 
+compiled from components developed by various open source projects and 
+programmers. Each distribution includes the Linux kernel (the foundation of 
+the operating system), the GNU shell utilities (the terminal interface and 
+commands), the X server (for a graphical desktop), the desktop environment, a 
+package management system, an installer and other services. Many components 
+are developed independently from each other and are distributed in source 
+code form. Distros also include an Internet browser, management tools and 
+other software such as the KVM hypervisor. A single Linux distribution may 
+contain thousands of software packages, utilities and applications.
+
+Linux distributions compile code from open source projects and combine it 
+into a single operating system that can be installed and booted up. Linux 
+distributions are available for desktop computers, for servers without a 
+graphical interface, for super computers, for mobile devices, and for special 
+uses, such as home theater PCs and embedded systems. Because it is open 
+source software, anyone can make their own Linux distribution by assembling 
+it from the source code themselves, or by modifying an existing distribution. 
+Currently, more than 300 Linux distributions are actively maintained.
+
+There are commercially backed distributions, such as Fedora (Red Hat), 
+openSUSE (SUSE) and Ubuntu (Canonical Ltd.), and entirely community-driven 
+distributions, such as Debian, Slackware, Gentoo and Arch Linux. Most 
+distributions come ready to use and pre-compiled for a specific instruction 
+set, while some distributions are distributed mostly in source code form and 
+compiled locally during installation. Some commercial distributions charge 
+users a fee for support and customer development services. Open source 
+licensing prohibits charging for open source software.
+
+The following is the list of some popular Linux distros:
+
+
+1 Ubuntu
+2 Debian
+3 CentOS
+4 Red Hat Enterprise Linux (RHEL)
+5 Gentoo
+6 Fedora
+7 OpenSUSE
+8 Scientific Linux
+9 Cloud Linux
+10 Elementary OS
+11 Linux Mint
+12 Arch Linux
+13 Manjaro
+14 Oracle Linux
+15 Slackware
+16 Mageia
+17 Clear Linux
+18 Rocky Linux
+19 AlmaLinux
+20 Puppy Linux
+
+------------------------------------------------------------------------------------
+An important practice:
+
+In CS260a, very often we are modifying our sensitive system files. Before any
+modification, you need to make a copy of the original file(s). For example
+cp .bashrc  .bashrc.orig
+cp .bash_profile  .bash_profile.orig
+cp .profile  .profile.orig
+
+Whenever you need to delete the contents of any system file, please do the following:
+
+cp  /dev/null your_system_filename
+
+

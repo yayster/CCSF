@@ -1,0 +1,40 @@
+                                CS260A Homework #1
+                                ------------------
+
+One of the jobs of any sys-admin is writing or modifying shell scripts. 
+In this homework assignment, we would like to start practicing with shell scripting.
+
+Very often, a sys-admin needs to create some junk or trash files. For example 
+creating 35 files with the size of 200 bytes each. Or create a file with the size
+of one mega byte. 
+We would like to make a shell script called "mkfiles". This script should be able
+to create any number of files, with any size. 
+For example:
+
+mkfiles -s 3000 -n 5 -f goody
+would generate 5 files with 3000 bytes each. The name of the files would be goody1,
+goody2, goody3, goody4, and goody5.
+
+In this script, -f followed by the filename is used to provide the filename.
+If the -f option is missing, then the default filename is "noname'.
+-n is used for number of files.
+If -n is missing, then only one file will be generated.
+-s is used to specify the size of the file in bytes.
+If -s is missing, then the default file size will be zero.
+-h would display the help menu.
+
+mkfiles -h   would display the help menu.
+
+-v would display the names of all of the generated files.
+
+For your information, I have made the binary version of this shell script, and posted
+in our public directory on hills. The name of the file is "mkfiles".
+
+To play with that, you need to copy it to your home directory, and then run it.
+Your shell script should behave and run similar to the binary that I have provided
+for you.
+
+Due date: 1/31/22
+You need to email me your shell script, and a sample of output.
+
+

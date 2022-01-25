@@ -1,0 +1,30 @@
+
+After login to hills successfully (instruction is given in another file),
+you need to switch to our public directory:
+You need to type:
+
+   cd  /pub/cs/amoghtan/cs260a
+
+   To see all oo the filenames, you need to type the  ls  command:
+
+   ls
+
+   OR you might type:
+
+   ls  -l
+
+
+   to look at the contents of a file, you will type:
+
+   cat   the_file_name
+
+
+   to leave the public directory, and go back to yours, you'll type
+
+   cd
+
+   To exit your account, you need to type:
+
+   exit
+
+

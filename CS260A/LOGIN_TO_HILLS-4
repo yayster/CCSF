@@ -1,0 +1,72 @@
+How to login to hills:
+
+
+If you are using a Windows 10 PC, strike the Windows key and type "cmd" without the
+quotes.
+
+The command prompt app icon should appear, click on that.
+
+You should see a mostly blank screen that by default is black,
+
+with a prompt that probably reads C:\Users\<your login> whatever your local login is.
+
+Type "ssh <your username>@hills.ccsf.edu" and hit "Enter" without the quotes.
+
+Hills will ask for your password. It's your birthday-dot-initials in the following format mmmddyy.fl
+
+for example if Jane Kurtain was born January 21st 1990
+
+her password would be jan2190.jk
+
+Note the use of all lower case letters for the month and the initials.
+ 
+
+For first time users you may see on your screen:
+
+The authenticity of host 'hills.ccsf.edu (147.144.1.2)' can't be established.
+
+RSA key fingerprint is SHA256:S9gQfX4YbPVLvVSSfxEt4wT3VdI+nNfXHV3Yc8NZ5XA or
+something similar.
+
+Are you sure you want to continue connecting (yes/no)? Enter yes.
+
+==========
+
+If you are using an Apple MacIntosh
+
+Command-Shift-A is a keyboard shortcut to the Applications.
+
+You are looking for "Terminal." If it's not in Applications it should be in
+"Utilities" (Command-Shift-U)
+
+Again you when you click on that icon you should get a mostly blank screen but the
+
+command prompt may look like $/Users/<your login>.
+
+
+Type "ssh <your username>@hills.ccsf.edu" and hit "Enter."
+
+Hills will ask for your password. It's your birthday-dot-initials in the following
+format mmmddyy.fl
+
+for example if Jane Kurtain was born January 21st 1990
+
+her password would be jan2190.jk
+
+Note the use of all lower case letters for the month and the initials.
+
+For first time users you may see on your screen:
+
+The authenticity of host 'hills.ccsf.edu (147.144.1.2)' can't be established.
+
+RSA key fingerprint is SHA256:S9gQfX4YbPVLvVSSfxEt4wT3VdI+nNfXHV3Yc8NZ5XA or
+something similar.
+
+Are you sure you want to continue connecting (yes/no)? Enter yes.
+
+If you wish to change your password to something easier to remember, the command 
+is passwd.
+
+The server will prompt you for your current password(see above),
+then will require you to enter the new password twice.
+
