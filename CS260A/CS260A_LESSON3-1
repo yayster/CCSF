@@ -1,0 +1,41 @@
+When we login to a Linux box, the login process will save our login information in
+/var/log/wtmp and /var/log/utmp.  In the case of invalid login, the information will
+be saved in the /var/log/btmp file. 
+wtmp keeps the records of all login and logout attempts. But utmp always keeps the
+latest one. As a result,  /utmp is the subset of /wtmp.
+These files are binary files, and we need some special tools to look at the contents
+of these files. The following commands are used to access and display these files:
+last, blast , utmpdump.
+
+Please access the following sites for more information:
+
+https://www.thegeekdiary.com/what-is-the-purpose-of-utmp-wtmp-and-btmp-files-in-linux/
+https://linoxide.com/linux-how-to/difference-between-utmp-wtmp-files-in-linux/
+https://www.sandflysecurity.com/blog/using-linux-utmpdump-for-forensics-and-detecting-log-file-tampering/
+
+Some students asked me to recommend a good site for the vim text editor. 
+I suggest the following site:
+
+https://jacobcomer.medium.com/write-code-faster-in-vim-c564ff9b9f6c
+
+
+Please put the following alias into your .bash_profile :
+
+alias CS260A='cd /pub/cs/amoghtan/cs260a'
+
+And from now on, just by typing  CS260A  you are able to access our public directory
+on hills. In the public directory, you can type:  last_files
+to see the latest posted files.
+
+There is a very handy command in Linux called "split". This command is a very useful
+tool for any sys-admin and developer. 
+What it does is splitting your files into small chunks. 
+The following sites would provide some useful
+information about "split":
+
+https://www.geeksforgeeks.org/split-command-in-linux-with-examples/
+https://www.linuxtechi.com/split-command-examples-for-linux-unix/
+
+To glue the files back together, we use the "cat" command. 
+
+
