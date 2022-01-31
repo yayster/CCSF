@@ -1,0 +1,172 @@
+In this lesson, we would like to talk about /etc/passwd and /etc/group files.
+
+/etc/passwd is a text file, readable by everybody, and writable by root.
+This file keeps track of all of the users on the system. It simply means, each
+user of the system should have a record in this file.
+The records are sorted based on the numeric user-id. As a result, the very first
+record belongs to the root with the user-id of zero.
+Each record in this file consists of 7 fields and fields are separated by a semi-
+colon. The following depicts the structure of a record in /etc/passwd:
+
+login-id:password:user-id:group-id:comments:home_directory:shell
+
+The first field is the user's login-id. For example, mine is "amoghtan".
+The second field used to be the encrypted password for the user. But due to the
+security issues, this field no longer keeps passwords. We normally put and "x" or
+another character as a place holder.
+The third field is the unique numeric user-id. For example mine is 952.
+The forth field is the numeric group-id. Group-id does not need to be unique.
+The fifth field is the comment field. We can put our full name, or address or
+department or whatever. It can be also an empty field.
+The sixth field is the home_directory field. It shows the full path of the user's
+directory when he/she logins in to the system. 
+The seventh field is the shell field. In this field we put the full path of the
+shell we are using. For example:   /bin/bash or /bin/ksh  and so forth.
+This field also could have the full path of the special shell script made by the
+sys-admin. For example something like  /bin/nologin. This script normally displays
+some message to the user, and then logs off the system.
+If you have never seen your record in the password file, you might do it by this
+command:
+
+grep "^YOUR_LOGIN_ID"  /etc/passwd
+For example,      grep "^amoghtan"  /etc/passwd
+will display my record on hills.
+To count number of all users on hills we should do:
+
+cat /etc/passwd | wc -l
+OR
+wc -l < /etc/passwd
+
+To show number of users who are using "bash", we should do:
+
+grep "/bash$" /etc/passwd | wc -l
+
+Or to count number of "nologin" accounts:
+
+grep "nologin$" /etc/passwd | wc -l
+
+There is a very good utility called "getent". This command can be used to display
+/etc/passwd or /etc/group or any other system file. For example:
+
+getent passwd
+will display the entire /etc/passwd file. Or  
+getent passwd  amoghtan
+will display my record.
+getent passwd | wc -l 
+will count number of users.
+
+Now lets talk about /etc/group file.
+This file is taking care of all of the groups in the system. 
+As you know, each user in unix/Linux should belong to at least one group.
+Each group has its own record in the /etc/group file. The following shows the
+structure of the /etc/group file:
+
+group_name:password:group-id:group-members
+
+The group_name has the name of the group. It is a non-numeric field.
+The password field does not keep the password anymore. We normally put "x" as a 
+place holder.
+The group-id field is representing the numeric group-id. This field does not need
+to be unique.
+The group-members field consists of the login-id of all of all of the group members
+separated by a comma.
+
+At CCSF, each course is represented by a unique 5-digit number. This number is called
+"CRN". For example 32569 is a CRN number.
+Each course has a record in the /etc/group file. The group-name for each course
+is the CRN of the course proceeded by a letter "c". For example "c32569"
+The group-members are all the login-ids of all of the students who are taking
+that course. The first group-member is the login-id of the instructor of the
+course.
+For example:
+
+c32569:x:7351:amoghtan,amaceir1,bchew4,cfazio,cfigue43,clee362,ichan30,jhern441,jjacob7,jpetani,jseelapa,kcalero1,kgarc127,kmclare2,kserrafi,lfaulds,mmoy5,nmarks5,nmucks,nwarner7,rguzman5,rherrer4,rnyima,rrowleyi,ssitu29,ttekie1,wwong4,vrogov1,kmcalli1,oreising,kamara1,ljimen24,mbravo13,jkhosh,emolhi,sspeas
+
+The following command would display the sorted login-ids of all of the students
+in the course with the CRN of 32569:
+
+getent group c32569 | cut -d: -f4 | tr ','  '\n' | sed '1d' | sort
+
+Did you understand what these commands do ?
+
+As I mentioned earlier in this lesson, the password fields in /etc/passwd and
+/etc/group do not have any password. In the old good days, we had the unscripted
+password in this field, but due to the security issues, the passwords are moved to
+another file called /etc/shadow .
+Unalike /etc/passwd and /etc/group, /etc/shadow is not readable by anybody. In fact
+this file is not even a textual. There is a tool to read the file. In the
+account management and account security subjects, I'll come beck to /etc/shadow
+again, and discuss about this file in more detail.
+
+
+How to make a bootable USB flash drive
+--------------------------------------
+
+There are several ways to make a bootable USB flash drive. The following
+depicts some of them:
+
+balenaEtcher
+DasBoot	
+Fedora 
+GNOME Disks
+GNU dd	
+LinuxLive USB Creator (LiLi)
+remastersys
+Rufus
+SliTaz TazUSB
+Ubuntu Live USB creator
+UNetbootin
+Universal USB Installer (UUI)
+Ventoy
+Windows To Go
+
+Using the dd command to create a USB bootable flash drive
+---------------------------------------------------------
+1) Find the device name of your flash drive
+
+sudo lsblk
+
+or 
+
+df
+
+The following is a sample of output of the df command on my machine:
+
+
+Filesystem            1K-blocks    Used Available Use% Mounted on
+udev                   16432268       0  16432268   0% /dev
+tmpfs                   3288884   26244   3262640   1% /run
+/dev/mapper/md0_crypt 491076512 9641092 456420380   3% /
+tmpfs                  16444408  105472  16338936   1% /dev/shm
+tmpfs                      5120       4      5116   1% /run/lock
+tmpfs                  16444408       0  16444408   0% /sys/fs/cgroup
+/dev/sdc1             122546800  124876 116153868   1% /boot
+tmpfs                   3288880      24   3288856   1% /run/user/119
+tmpfs                   3288880      72   3288808   1% /run/user/1000
+/dev/sdd1               1467360 1467360         0 100% /media/abbas/PENDRIVE
+
+Please pay attention to the last line. So my device name is "/dev/sdd1"
+
+2) unmount the device
+
+sudo umount /dev/sdd1
+
+3) Create a file system on your flash drive 
+
+sudo mkfs.vfat /dev/sdd1
+
+4) create the USB flash drive now
+
+sudo dd if=name-of-iso.iso of=/dev/sdd1  bs=1M status=progress
+
+
+Using rufus to create a USB bootable flash drive
+------------------------------------------------
+
+
+https://www.youtube.com/watch?v=xOSa56Hgl3Y&ab_channel=TechSanjeet
+https://www.maketecheasier.com/use-rufus-create-bootable-flash-drive/
+https://support.ipconfigure.com/hc/en-us/articles/115005939766-Creating-a-Bootable-USB-Using-Rufus
+
+
+
