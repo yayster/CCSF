@@ -1,0 +1,173 @@
+----------
+CRN 35690 does not exist!
+----------
+CRN 43578 does not exist!
+----------
+CRN 43432 does not exist!
+----------
+student login-ids of CRN c30821:
+
+akhan30
+akhan4
+akoren
+bneill2
+cbulkley
+cli275
+cpomeroy
+devans10
+dkayal
+eandrew6
+ggorlen
+hshinn
+isoto3
+ktilton
+kwong43
+nmarks5
+ranton15
+rvilla76
+scisne13
+seckardt
+tbrody
+zzheng30
+kamara1
+shan22
+----------
+The number of students of CRN c30821:
+
+24
+----------
+login id of instructor of CRN c30821:
+
+amoghtan
+----------
+login id of instructor of CRN c30821:
+
+amoghtan
+The number of students of CRN c30821:
+
+24
+student login-ids of CRN c30821:
+
+akhan30
+akhan4
+akoren
+bneill2
+cbulkley
+cli275
+cpomeroy
+devans10
+dkayal
+eandrew6
+ggorlen
+hshinn
+isoto3
+ktilton
+kwong43
+nmarks5
+ranton15
+rvilla76
+scisne13
+seckardt
+tbrody
+zzheng30
+kamara1
+shan22
+----------
+
+     course_info <option>
+     options are:
+
+     i)  displays all student login-ids
+     n)  displays number of students
+     t)  displays the login-id of the instructor
+     a)  displays all of the above
+     h)  displays the help menu
+
+     Examples:
+
+     course_info -i 35690
+
+     will display the login-ids of all
+     of the students in the class
+     with the CRN number 35690.
+
+     course_info -t 43578
+
+     will display the login-ids
+     of the instructor of the class
+     with the CRN number 43578.
+
+     course_info -n 43432
+
+     will display the number of students
+     in the class represented
+     by the CRN number 43432.
+
+----------
+INVALID OPTION!
+
+     course_info <option>
+     options are:
+
+     i)  displays all student login-ids
+     n)  displays number of students
+     t)  displays the login-id of the instructor
+     a)  displays all of the above
+     h)  displays the help menu
+
+     Examples:
+
+     course_info -i 35690
+
+     will display the login-ids of all
+     of the students in the class
+     with the CRN number 35690.
+
+     course_info -t 43578
+
+     will display the login-ids
+     of the instructor of the class
+     with the CRN number 43578.
+
+     course_info -n 43432
+
+     will display the number of students
+     in the class represented
+     by the CRN number 43432.
+
+----------
+Improper CRN format with 1234!
+At CCSF, each course is represented by a unique 5-digit number.
+This number is called "CRN". For example 32569 is a CRN number.
+----------
+INVALID OPTION!
+
+     course_info <option>
+     options are:
+
+     i)  displays all student login-ids
+     n)  displays number of students
+     t)  displays the login-id of the instructor
+     a)  displays all of the above
+     h)  displays the help menu
+
+     Examples:
+
+     course_info -i 35690
+
+     will display the login-ids of all
+     of the students in the class
+     with the CRN number 35690.
+
+     course_info -t 43578
+
+     will display the login-ids
+     of the instructor of the class
+     with the CRN number 43578.
+
+     course_info -n 43432
+
+     will display the number of students
+     in the class represented
+     by the CRN number 43432.
+
