@@ -64,7 +64,7 @@ prep () {
 }    
 
 student_login_ids () {
-    printf "student login-ids of CRN ${CRN}:\n\n"
+    printf "student login-ids of CRN ${OPTARG}:\n\n"
     for ((i=1; i<=(${#members_array[@]}-1);i++))
     do
 	echo "${members_array[${i}]}"
@@ -72,14 +72,14 @@ student_login_ids () {
 }
 
 number_of_students () {
-    printf "The number of students of CRN ${CRN}:\n\n"
+    printf "The number of students of CRN ${OPTARG}:\n\n"
     student_count=${#members_array[@]}
     student_count=$((student_count-1))
     echo "${student_count}"
 }
 
 login_id_of_instructor () {
-    printf "login id of instructor of CRN ${CRN}:\n\n"
+    printf "login id of instructor of CRN ${OPTARG}:\n\n"
     echo "${members_array[0]}"
 }
 
