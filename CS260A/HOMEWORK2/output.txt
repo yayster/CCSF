@@ -5,7 +5,7 @@ CRN 43578 does not exist!
 ----------
 CRN 43432 does not exist!
 ----------
-student login-ids of CRN c30821:
+student login-ids of CRN 30821:
 
 akhan30
 akhan4
@@ -32,21 +32,21 @@ zzheng30
 kamara1
 shan22
 ----------
-The number of students of CRN c30821:
+The number of students of CRN 30821:
 
 24
 ----------
-login id of instructor of CRN c30821:
+login id of instructor of CRN 30821:
 
 amoghtan
 ----------
-login id of instructor of CRN c30821:
+login id of instructor of CRN 30821:
 
 amoghtan
-The number of students of CRN c30821:
+The number of students of CRN 30821:
 
 24
-student login-ids of CRN c30821:
+student login-ids of CRN 30821:
 
 akhan30
 akhan4
