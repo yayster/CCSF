@@ -1,0 +1,36 @@
+1) To capture the man page in a text file, we do
+
+man <name of the command> | col -b > a_textfile
+
+For example:
+
+man find | col -b > find.txt
+
+2) the whatis command is the same as   man -f
+
+3) the apropos command is the same as man -k
+
+4) the reset command is the same as  tset
+
+5) to display the environment variables, we can use:
+
+   env
+   set
+   export
+   printenv
+
+6) to display the current shell we can do:
+   echo $SHELL
+   or
+   echo $0
+
+7) the "who | awk '{print $1}' " is the same as the "users" command
+
+8) to add line numbers to a textfile we can use "cat -n"  or "nl -b a" command.
+   For example:
+
+   cat -n myfile
+   nl -b a myfile
+
+
+
