@@ -88,7 +88,7 @@ if [ $cflag ]; then
 	    # so the username does not already exist.
 	    # echo "create user and set passwd"
 	    sudo useradd $username -d /home/$username -m;
-o	    sudo chpasswd <<<"$username:$password"
+	    sudo chpasswd <<<"$username:$password"
 	fi
     done
 fi
