@@ -1,0 +1,28 @@
+Account Management in Unix/Linux
+--------------------------------
+
+In this lesson, we would like to talk about account management.
+Account management is the ability of creating, modifying and deleting users accounts.
+To do that, we need to have the root privilege.
+
+One of the important jobs of any sys-admin is managing users accounts. 
+For example, creating accounts, delete accounts, lock and unlock accounts. enforce
+passwords, create groups, delete groups, and so forth.
+You need to be familiar with the following tools:
+
+useradd, groupadd, usermod, groupmod, userdel, groups, and groupdel.
+
+The following sites are showing you how to use the above commands:
+
+
+https://www.redhat.com/sysadmin/linux-user-account-management
+https://www.guru99.com/linux-admin.html
+https://www.pluralsight.com/guides/user-and-group-management-linux
+https://www.geeksforgeeks.org/user-management-in-linux/
+https://www.tecmint.com/manage-users-and-groups-in-linux/
+https://www.linuxtechi.com/linux-commands-to-manage-local-accounts/
+https://www.javatpoint.com/linux-user-management
+
+In addition, chapter 5 in our textbook, covers this subject very well.
+
+

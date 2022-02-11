@@ -1,0 +1,86 @@
+
+#!/bin/bash
+# 
+# Author:  Abbas Moghtanei
+# Date  :  01/31/22 
+# Program Name: mkfiles 
+# 
+# syntax: mkfiles -n num_files -s file_size -f filename -v
+
+#***********************************help()**********************************
+help()
+{
+   cat <<EOF
+
+      $(basename $0 ) file1 file2 file3 ... 
+      OR
+      $(basename $0 ) <options> 
+      options are:
+
+      f)   filename        (default is noname)
+      h)   display this help menu
+      n)   number of files (default is 1)
+      s)   size of files   (default is 0)
+      v)   displays created filenames
+     
+      Examples:
+      
+      $(basename $0)  
+      $(basename $0) -h 
+      $(basename $0) -n 20
+      $(basename $0) -n 40 -s 100  
+      $(basename $0) -n 40 -s 100 -f junk  
+      $(basename $0) -n 40 -s 100 -f junk -v 
+      $(basename $0) myfile hisfile herfile ourfile
+
+EOF
+   exit 0
+}
+#***************************************************************************
+nflag=false; sflag=false; fflag=false; vflag=false
+
+(( $# == 0 )) && $0 -n 1 -s 0 -f noname  #if command-line is empty, use default values
+
+# to parse the command-line
+
+options=":n:hs:f:v"
+while getopts  $options  opt; do
+   case $opt in
+     'n' ) nflag=true; numfiles=$OPTARG;;
+     'h' ) help;;
+     's' ) sflag=true; filesize=$OPTARG;; 
+     'f' ) fflag=true; filename=$OPTARG;;  
+     'v' ) vflag=true;;
+     '?' ) echo "Invalid option -$OPTARG"; exit 1
+   esac
+done
+shift $(( $OPTIND - 1 ))
+
+if (( $# > 0 )); then
+   for fname in $*; do
+      > $fname
+   done
+   exit 0
+fi
+
+if ! $nflag; then     #if no -n flag, then numfiles is 1
+  numfiles=1
+fi
+if ! $fflag; then     #if no -f flag, then filename is "noname"
+   filename="noname"
+fi
+if ! $sflag; then     #if no -s flag, then filesize is 0 
+   filesize=0
+fi
+
+# we can also use "truncate" instead of "dd"
+
+for num in $(seq $numfiles); do
+   fname=$filename${num}
+   dd if=/dev/random  of=$fname bs=1 count=$filesize 2>/dev/null
+   if  $vflag; then 
+      ls -l $fname
+   fi
+done
+
+
