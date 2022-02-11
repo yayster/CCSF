@@ -1,0 +1,94 @@
+#!/usr/bin/bash
+#
+# Author:  David Kayal
+# Date  :  02/10/22
+# Program Name: acct_mgr
+#
+# syntax: acct_mgr -c -f file_name -p initial_password
+
+#***********************************help()**********************************
+help()
+{
+   cat <<EOF
+
+   $(basename $0 )
+   OR
+   $(basename $0 ) <options>
+   options are:
+
+   c)  To create accounts
+   f)  The file name containing login-ids
+   p)  to provide the initial password for the users (default is "changeme")
+   h)  display this help menu
+
+   Examples:
+   
+   $(basename $0)
+   $(basename $0) -h
+   $(basename $0) -c -f users.lst
+   $(basename $0) -c good bad short long
+   $(basename $0) -c -f users.lst -p "zoro2434" good bad short long
+
+EOF
+   exit 0
+}
+#*******************************************************************************
+
+# set default values
+
+declare -a username_array
+
+cflag=false; fflag=false; pflag=false;
+
+prefix="dk"
+password="changeme"
+filename="nothing"
+
+# to part the command-line
+
+options="cf:p:h"
+while getopts $options opt; do
+    case $opt in
+	'c' ) cflag=true;;
+	'f' ) fflag=true; filename=$OPTARG;;
+	'p' ) pflag=true; password=$OPTARG;;
+	'h' ) help;;
+    esac
+done
+# this should grab any extra arguments 
+shift $(( $OPTIND -1 ))
+
+if (( $# > 0 )); then
+    for username in $*; do
+	username_array+=( "$username" )
+    done
+fi
+
+# this should grab the usernames from the file
+if [ $fflag ]; then
+    if [ -f $filename ]; then
+	while read username; do username_array+=( "$username" ); done < $filename
+    else
+	echo "file not found!  $filename"
+	exit 1
+    fi
+fi
+
+# if we are to create the users
+if [ $cflag ]; then
+# loop through the usernames 
+    for suffix in ${username_array[@]}; do
+	username="${prefix}${suffix}"
+	echo ${username}
+	# does the username already exist?
+	grep -q "$username" /etc/passwd
+	if [[ $? -eq $SUCCESS ]]; then
+	    echo "User $username already exists"
+	else
+	    # so the username does not already exist.
+	    # echo "create user and set passwd"
+	    sudo useradd $username -d /home/$username -m;
+o	    sudo chpasswd <<<"$username:$password"
+	fi
+    done
+fi
