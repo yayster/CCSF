@@ -18,7 +18,8 @@ help()
 
    c)  To create accounts
    d)  To delete accounts
-   s)  To Show accounts, with regex
+   s)  To show accounts, with regex
+   S)  To show accounts, no regex
    f)  The file name containing login-ids
    p)  to provide the initial password for the users (default is "changeme")
    h)  display this help menu
@@ -45,16 +46,17 @@ cflag=false; dflag=false; fflag=false; pflag=false;
 prefix="dk"
 password="changeme"
 filename="nothing"
-regex='.*'
+regex='^.*'
 
 # to part the command-line
 
-options="cds:f:p:h"
+options="cdSs:f:p:h"
 while getopts $options opt; do
     case $opt in
 	'c' ) cflag=true;;
 	'd' ) dflag=true;;
 	's' ) sflag=true; regex=$OPTARG;;
+	'S' ) sflag=true;;
 	'f' ) fflag=true; filename=$OPTARG;;
 	'p' ) pflag=true; password=$OPTARG;;
 	'h' ) help;;
