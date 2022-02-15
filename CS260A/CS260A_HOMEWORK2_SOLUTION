@@ -1,0 +1,91 @@
+#!/bin/bash
+# 
+# Author:  Abbas Moghtanei
+# Date  :  12/05/19 - 2/8/22
+# Program Name: course_info 
+# Objective: displays info about a course. Accepts a crn number on the command line.
+
+#**********************************help()***********************************
+help()
+{
+   cat <<-EOF
+     usage: $(basename $0) option(s) crn_number
+     where options are:
+     -i:  display all student ids
+     -n:  display number of students
+     -t:  display the id of the instructor
+     -a:  display all of the above
+     -h:  display this help
+EOF
+exit 0
+}
+#********************************validate_crn()*****************************
+validate_crn()
+{
+   crn="c""$crn"
+
+   if [[  $crn =~ ^c[0-9]{5} ]] ; then
+      :
+   else
+      echo "Invalid CRN"
+      exit 1
+   fi
+   a=$(grep "^${crn}:" /etc/group)
+   if [ -z "$a" ]; then
+      echo "CRN does not exist"
+      exit 2
+   fi
+}
+#*******************************show_students()*****************************
+show_students()
+{
+  crn=$1
+
+  [ $(echo $crn | cut -c1) != "c" ] && crn="c"${crn}
+  getent group $crn | awk -F: '{print $4}' | tr ',' '\n' | sed '1d' | sort
+}
+#*******************************num_students()******************************
+num_students()
+{
+  crn=$1
+  show_students $1 | wc -l
+}
+#**********************************teacher()********************************
+teacher()
+{
+  crn=$1
+  [ $(echo $crn | cut -c1) != "c" ] && crn="c"${crn}
+  getent group $crn | awk -F: '{print $4}' | tr ',' '\n' | head -1
+}
+#***************************************************************************
+aflag=false; tflag=false; nflag=false; iflag=false
+options=":nitah"
+while getopts $options opt; do
+   case $opt in
+     'n' ) nflag=true;;
+     'i' ) iflag=true;;
+     't' ) tflag=true;;
+     'a' ) nflag=true; iflag=true; tflag=true;;
+     'h' ) help;;
+     '?' ) echo "invalid option -$OPTARG"; exit 1;;
+   esac
+done
+shift $(( OPTIND - 1 ))   #get rid of all options
+
+(( $# == 0 )) && echo "usage: $(basename $0) option(s)  crn_number" && exit 1
+
+crn=$1
+
+validate_crn $crn
+
+if $iflag; then 
+   echo "students ids:" &&  show_students $crn
+fi
+if $nflag; then
+   echo "number of students: $(num_students $crn)"
+fi
+if  $tflag; then
+   echo "instructor's id: $(teacher $crn)"
+fi
+
+ 

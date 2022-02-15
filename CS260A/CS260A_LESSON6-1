@@ -1,0 +1,35 @@
+Password Expiration and Aging in Linux
+--------------------------------------
+
+System administration involves numerous tasks including managing users/groups and
+under user management, some of the minor tasks involved are adding, modifying,
+suspending, or deactivating user accounts, and many more.
+
+
+The chage command is used to modify user password expiry information. It enables you 
+to view user account aging information, change the number of days between password
+changes and the date of the last password change.
+
+For more information, please use the following sites:
+
+https://www.geeksforgeeks.org/chage-command-in-linux-with-examples/
+https://www.tecmint.com/manage-user-password-expiration-and-aging-in-linux/
+
+usermod is a command-line utility that allows you to modify a user's login information.
+
+For more information, please use the following sites:
+https://linuxize.com/post/usermod-command-in-linux/
+https://www.tecmint.com/usermod-command-examples/
+https://www.geeksforgeeks.org/usermod-command-in-linux-with-examples/
+
+
+The /etc/shadow file
+--------------------
+
+/etc/shadow is a text file that contains information about the system's users' passwords. It is owned by user root and group shadow, and has 640 permissions .
+
+
+For more information, please use the following sites:
+
+https://www.cyberciti.biz/faq/understanding-etcshadow-file/
+https://linuxize.com/post/etc-shadow-file/
