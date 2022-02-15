@@ -17,6 +17,8 @@ help()
    options are:
 
    c)  To create accounts
+   d)  To delete accounts
+   s)  To Show accounts, with regex
    f)  The file name containing login-ids
    p)  to provide the initial password for the users (default is "changeme")
    h)  display this help menu
@@ -38,18 +40,21 @@ EOF
 
 declare -a username_array
 
-cflag=false; fflag=false; pflag=false;
+cflag=false; dflag=false; fflag=false; pflag=false;
 
 prefix="dk"
 password="changeme"
 filename="nothing"
+regex='.*'
 
 # to part the command-line
 
-options="cf:p:h"
+options="cds:f:p:h"
 while getopts $options opt; do
     case $opt in
 	'c' ) cflag=true;;
+	'd' ) dflag=true;;
+	's' ) sflag=true; regex=$OPTARG;;
 	'f' ) fflag=true; filename=$OPTARG;;
 	'p' ) pflag=true; password=$OPTARG;;
 	'h' ) help;;
@@ -74,12 +79,12 @@ if [ $fflag ]; then
     fi
 fi
 
-# if we are to create the users
-if [ $cflag ]; then
 # loop through the usernames 
-    for suffix in ${username_array[@]}; do
-	username="${prefix}${suffix}"
-	echo ${username}
+for suffix in ${username_array[@]}; do
+    username="${prefix}${suffix}"
+    echo ${username}
+    # if we are to create the users
+    if [ $cflag ]; then
 	# does the username already exist?
 	grep -q "$username" /etc/passwd
 	if [[ $? -eq $SUCCESS ]]; then
@@ -90,5 +95,5 @@ if [ $cflag ]; then
 	    sudo useradd $username -d /home/$username -m;
 	    sudo chpasswd <<<"$username:$password"
 	fi
-    done
-fi
+    fi
+done
