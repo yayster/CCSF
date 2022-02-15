@@ -1,0 +1,91 @@
+Did you know that awk is abbreviated from the names of its developers – Alfred Aho,
+Peter Weinberger, and Brian Kernighan? 
+
+The following are the three variations of AWK:
+
+1. Awk
+AWK is original AWK written by A. Aho, B. W. Kernighan and P. Weinberger.
+
+2. Nawk
+NAWK stands for “New AWK”. This is AT&T’s version of the Awk.
+
+3. Gawk
+GAWK stands for “GNU AWK”. All Linux distributions comes with GAWK. This is fully 
+compatible with AWK and NAWK.
+
+On Linux, typing either awk or gawk invokes the GAWK. awk is linked to gawk as
+shown below on Linux systems.
+
+ls -l /bin/awk /usr/bin/awk
+lrwxrwxrwx 1 root root  4 Jan  5 23:13 /bin/awk -> gawk
+lrwxrwxrwx 1 root root 14 Jan  5 23:13 /usr/bin/awk -> ../../bin/gawk
+
+How to show all of the function names on Linux
+----------------------------------------------
+The following function would do the job:
+
+show_functions()
+{
+   declare -F | awk '{print $NF}' | sort | egrep -v "^_"
+}
+
+But the better way is:
+
+The better way is:
+
+compgen -c
+
+To count total number of commands available for us
+
+compgen -c | wc -l
+
+
+To list all the bash aliases
+
+compgen -a
+
+To list all the bash built-ins
+
+compgen -b
+
+To list all the bash keywords
+
+compgen -k
+
+In the above examples, I am using the compgen command. This command is one of my
+favorite command in bash.
+
+The other favorite command is "shopt". This command also belongs to bash and is very
+useful in our scripts.
+
+Suppose we have the following shell script:
+
+#!/bin/bash
+
+alias print='echo'
+
+print "hello bash"
+
+when you run the script, you'll receive error message. Your script does not know
+what to do with "alias". To fix the problem I'll modify the script:
+
+#!/bin/bash
+
+shopt -s expand_aliases
+alias print='echo'
+
+print "hello bash"
+
+shopt -s expand_aliases
+
+To know more about "shopt", please use the following sites:
+
+https://www.computerhope.com/unix/bash/shopt.htm
+https://linuxhint.com/how-to-customize-a-bash-shell-with-the-shopt-command
+
+
+
+Do you know   view <file>  is the same as  vi -R <file>
+
+
+
