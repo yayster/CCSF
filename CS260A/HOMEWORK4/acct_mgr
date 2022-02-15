@@ -70,7 +70,7 @@ if (( $# > 0 )); then
 fi
 
 # this should grab the usernames from the file
-if [ $fflag ]; then
+if [ $fflag == true ]; then
     if [ -f $filename ]; then
 	while read username; do username_array+=( "$username" ); done < $filename
     else
@@ -82,9 +82,10 @@ fi
 # loop through the usernames 
 for suffix in ${username_array[@]}; do
     username="${prefix}${suffix}"
-    echo ${username}
+    # echo ${username}
+
     # if we are to create the users
-    if [ $cflag ]; then
+    if [[ $cflag == true && $dflag == false ]]; then
 	# does the username already exist?
 	grep -q "$username" /etc/passwd
 	if [[ $? -eq $SUCCESS ]]; then
@@ -96,4 +97,20 @@ for suffix in ${username_array[@]}; do
 	    sudo chpasswd <<<"$username:$password"
 	fi
     fi
+
+    # if we are to delete the users
+    if [[ $dflag == true && $cflag == false ]]; then
+	if [ -f /usr/sbin/deluser ]; then
+	    sudo deluser -remove-home $username
+	elif [ -f /usr/sbin/userdel ]; then
+	     sudo userdel --remove $username
+	else
+	    echo 'No binary found to delete users'
+	fi
+    fi
+    
 done
+
+if [[ $sflag == true ]]; then
+    grep -P $regex /etc/passwd | awk -F \: '{ print $1 }' 
+fi
