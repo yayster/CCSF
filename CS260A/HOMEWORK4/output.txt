@@ -1,0 +1,58 @@
+kayal@blackbox:~/CCSF/CS260A$ acct_mgr -s ^dk
+kayal@blackbox:~/CCSF/CS260A$ acct_mgr -c -f users.lst -s ^dk
+[sudo] password for kayal: 
+dkeagle
+dkhawk
+dkswan
+dksparrow
+dkpigeon
+kayal@blackbox:~/CCSF/CS260A$ acct_mgr -d -f users.lst -s ^dk
+Looking for files to backup/remove ...
+Removing files ...
+Removing user `dkeagle' ...
+Warning: group `dkeagle' has no more members.
+Done.
+Looking for files to backup/remove ...
+Removing files ...
+Removing user `dkhawk' ...
+Warning: group `dkhawk' has no more members.
+Done.
+Looking for files to backup/remove ...
+Removing files ...
+Removing user `dkswan' ...
+Warning: group `dkswan' has no more members.
+Done.
+Looking for files to backup/remove ...
+Removing files ...
+Removing user `dksparrow' ...
+Warning: group `dksparrow' has no more members.
+Done.
+Looking for files to backup/remove ...
+Removing files ...
+Removing user `dkpigeon' ...
+Warning: group `dkpigeon' has no more members.
+Done.
+kayal@blackbox:~/CCSF/CS260A$ acct_mgr -h
+
+   acct_mgr
+   OR
+   acct_mgr <options>
+   options are:
+
+   c)  To create accounts
+   d)  To delete accounts
+   s)  To show accounts, with regex
+   S)  To show accounts, no regex
+   f)  The file name containing login-ids
+   p)  to provide the initial password for the users (default is "changeme")
+   h)  display this help menu
+
+   Examples:
+   
+   acct_mgr
+   acct_mgr -h
+   acct_mgr -c -f users.lst
+   acct_mgr -c good bad short long
+   acct_mgr -c -f users.lst -p "zoro2434" good bad short long
+
+kayal@blackbox:~/CCSF/CS260A$
