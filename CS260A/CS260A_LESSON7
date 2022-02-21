@@ -1,0 +1,128 @@
+In this lesson, we are talking about the "sudo" capability.
+
+The sudo command allows you to run programs as another user, by default the 
+root user. If you spend a lot of time on the command line, sudo is one of 
+the commands that you will use quite frequently.
+For example, I gave the CS260A students the sudo capability to run certain 
+root commands
+such as "useradd", "userdel", ...
+
+Using sudo instead of login in as root is more secure because you can grant 
+limited administrative privileges to individual users without them knowing 
+the root password.
+
+By default, on most Linux distributions granting sudo access is as simple 
+as adding the user to the sudo group defined in the sudoers file . Members 
+of this group will be able to run any command as root. The name of the 
+group may differ from distribution to distribution.
+
+On RedHat based distributions such as CentOS and Fedora, the name of the 
+sudo group is wheel. To add the user to the group , run:
+
+usermod -aG wheel username
+On Debian, Ubuntu, and their derivatives, members of the group sudo are 
+granted with sudo access:
+
+usermod -aG sudo username
+
+The root user account in Ubuntu is disabled by default for security 
+reasons, and users are encouraged to perform system administrative tasks 
+using sudo. The initial user created by the Ubuntu installer is already a 
+member of the sudo group, so if you are running Ubuntu, chances are that 
+the user you are logged in as is already granted with sudo privileges.
+
+To allow a specific user to run only certain programs as sudo, instead of 
+adding the user to the sudo group, add the users to the sudoers file.
+
+For example, to allow the user abbas to run only the mkdir command as 
+sudo, type:
+sudo visudo
+and append the following line:
+
+abbas  ALL=/bin/mkdir
+
+On most systems, the visudo command opens the /etc/sudoers file with the 
+vim text editor. So, familiarity with vim (or vi) is highly recommended. 
+
+You can also allow users to run sudo commands without entering the password:
+
+abbas  ALL=(ALL) NOPASSWD: ALL
+
+syntax for the sudo command is as follows:
+sudo OPTION.. COMMAND
+
+The sudo command has many options that control its behavior, but usually, 
+it is used in its most basic form, without any option.
+
+To use sudo, simply prefix the command with sudo:
+
+sudo command
+
+Where command is the command for which you want to use sudo.
+
+Sudo will read the /etc/sudoers file and check whether the invoking user is 
+granted with sudo assess. The first time you use sudo in a session, you 
+will be prompted to enter the user password, and the command will be executed as root.
+
+For example, to list all files in the /root directory you would use: sudo ls /root
+
+By default, sudo will ask you to enter your password again after five 
+minutes of sudo inactivity. You can change the default timeout by editing 
+the sudoers file. Open the file with visudo:
+
+sudo visudo
+
+Set the default timeout by adding the line below, where 10 is the timeout 
+specified in minutes:
+
+Defaults  timestamp_timeout=10
+
+If you want to change the timestamp only for a specific user, add the 
+following line, where user_name is the user in question.
+
+Defaults:user_name timestamp_timeout=10
+
+There is a wrong perception that sudo is used only to provide root 
+permissions to a regular user. Actually, you can use sudo to run a command 
+as any user.
+
+The -u option allows you to run a command as a specified user.
+In the following example, we are using sudo to run the whoami command as a 
+user 'richard':
+
+sudo -u richard whoami
+The whoami command will print the name of the user running the command:
+
+richard
+
+If you try to redirect the output of a command to a file that your user has 
+no write permissions, you will get a 'Permission denied' error.
+
+sudo echo "test" > /root/file.txt
+bash: /root/file.txt: Permission denied
+This happens because the redirection ">" of the output is performed under 
+the user you are logged in, not the user specified with sudo. The 
+redirection happens before the sudo command is invoked.
+
+One solution is to invoke a new shell as root by using sudo sh -c:
+sudo sh -c 'echo "test" > /root/file.txt'
+Another option is to pipe the output as a regular user to the tee command , 
+as shown below:
+
+echo "test" | sudo tee /root/file.txt
+
+
+https://phoenixnap.com/kb/linux-sudo-command
+https://www.linux.com/training-tutorials/linux-101-introduction-sudo/
+https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-fil
+e
+https://www.geeksforgeeks.org/sudo-command-in-linux-with-examples/
+https://www.hostinger.com/tutorials/sudo-and-the-sudoers-file/
+https://www.garron.me/en/linux/visudo-command-sudoers-file-sudo-default-edit
+or.html
+
+You can also find a good section about the "sudo" and "sudoers" in our 
+textbook.
+Chapter 5, pages 174-179
+
+
