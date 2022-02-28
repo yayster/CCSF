@@ -1,0 +1,194 @@
+In this lesson, we would like to talk about CRON, and task automation.
+
+Cron is one of the most useful utility that you can find in any Unix-like 
+operating system. It is used to schedule commands at a specific time. These 
+scheduled commands or tasks are known as "Cron Jobs". Cron is generally used 
+for running scheduled backups, monitoring disk space, deleting files (for 
+example log files) periodically which are no longer required, running system 
+maintenance tasks and a lot more. In this brief guide, we will see the basic 
+usage of Cron Jobs in Linux.
+
+To create a cron job, we need to use the "crontab" command. Latter on, in 
+this lesson, I'll discuss about the syntax of this command, and how to use 
+it.
+
+All of the cron files are located in /var/spool/cron/crontabs folder. So, 
+whoever creates a cron job, his/her cron file will be saved in the above
+location.
+
+There is a file /etc/cron.allow. Names in this file are eligible to create 
+cron jobs.
+Those names in the /etc/cron.deny are not able to create any cron job.
+Only one of these files are allowed to be available. An empty /etc/cron.deny
+indicates everybody is allowed to create any cron job. An empty 
+/etc/cron.allow
+indicates nobody (except root) is allowed to create any cronjob. 
+
+Cron command entries
+--------------------
+
+Each cron command entry in the crontab file has five time and date fields 
+(followed by a username, only if it's the system crontab file), followed by a 
+command.
+
+Commands are executed by cron when the minute, hour, and month fields match 
+the current time, and at least one of the two day fields (day of month, or 
+day of week) match the current day.
+
+The cron daemon checks the crontab once every minute.
+
+The typical format of a cron job is:
+
+Minute(0-59) Hour(0-24) Day_of_month(1-31) Month(1-12) Day_of_week(0-6) 
+Command_to_execute
+
+We can use "*" in each field, and that means "every". For example:
+
+To run a cron job at every minute, the format should be like below.
+* * * * * <command-to-execute>
+
+For example if the time is 10:00, the next job will run at 10:01, 10:02, 
+10:03 and so on.
+
+To run cron job at every 5th minute, add the following in your crontab file.
+*/5 * * * * <command-to-execute>
+For example if the time is 10:00, the next job will run at 10:05, 10:10, 
+10:15 and so on.
+
+To run a cron job at every quarter hour (i.e every 15th minute), add this:
+*/15 * * * * <command-to-execute>
+For example if the time is 10:00, the next job will run at 10:15, 10:30, 
+10:45 and so on.
+
+To run a cron job every hour at minute 30:
+30 * * * * <command-to-execute>
+For example if the time is 10:00, the next job will run at 10:30, 11:30, 
+12:30 and so on.
+
+You can also define multiple time intervals separated by commas. For example, 
+the following cron job will run three times every hour, at minute 0, 5 and 10:
+0,5,10 * * * * <command-to-execute>
+Run a cron job every half hour i.e at every 30th minute:
+*/30 * * * * <command-to-execute>
+For example if the time is now 10:00, the next job will run at 10:30, 11:00, 
+11:30 and so on.
+
+Run a job every hour (at minute 0):
+0 * * * * <command-to-execute>
+For example if the time is now 10:00, the next job will run at 11:00, 12:00, 
+12:00 and so on.
+
+Run a job every 2 hours:
+0 */2 * * * <command-to-execute>
+For example if the time is now 10:00, the next job will run at 12:00.
+
+Run a job every day (It will run at 00:00):
+0 0 * * * <command-to-execute>
+Run a job every day at 3am:
+0 3 * * * <command-to-execute>
+Run a job every Sunday:
+0 0 * * SUN <command-to-execute>
+Or,
+
+0 0 * * 0 <command-to-execute>
+It will run at exactly at 00:00 on Sunday.
+
+Run a job on every day-of-week from Monday through Friday i.e every weekday:
+0 0 * * 1-5 <command-to-execute>
+The job will start at 00:00.
+
+Run a job every month (i.e at 00:00 on day-of-month 1):
+0 0 1 * * <command-to-execute>
+Run a job at 16:15 on day-of-month 1:
+15 16 1 * * <command-to-execute>
+Run a job at every quarter i.e on day-of-month 1 in every 3rd month:
+0 0 1 */3 * <command-to-execute>
+Run a job on a specific month at a specific time:
+5 0 * 4 * <command-to-execute>
+The job will start at 00:05 in April.
+
+Run a job every 6 months:
+0 0 1 */6 * <command-to-execute>
+This cron job will start at 00:00 on day-of-month 1 in every 6th month.
+
+Run a job every year:
+0 0 1 1 * <command-to-execute>
+
+
+This cron job will start at 00:00 on day-of-month 1 in January.
+
+We can also use the following strings to define job.
+
+@reboot	Run once, at startup.
+@yearly	Run once a year.
+@annually	(same as @yearly).
+@monthly	Run once a month.
+@weekly	Run once a week.
+@daily	Run once a day.
+@midnight	(same as @daily).
+@hourly	Run once an hour.
+To run a job every time the server is rebooted, add this line in your crontab 
+file.
+@reboot <command-to-execute>
+
+crontab syntax
+--------------
+
+
+crontab [-u user] file
+crontab [-u user] [-l | -r | -e] [-i] [-s]
+Options are:
+
+file	Load the crontab data from the specified file. If file is a dash 
+("-"),
+the crontab data is read from standard input.
+
+-u user	Specifies the user whose crontab is to be viewed or modified. If this 
+option
+is not given, crontab opens the crontab of the user who ran crontab. Note: 
+using su
+to switch users can confuse crontab, so if you are running it inside of su, 
+always 
+use the -u option to avoid ambiguity.
+-l	Display the current crontab.
+-r	Remove the current crontab.
+-e	Edit the current crontab, using the editor specified in the 
+environment variable
+VISUAL or EDITOR.
+-i	Same as -r, but gives the user a yes/no confirmation prompt before 
+removing the crontab.
+-s	SELinux only: appends the current SELinux security context string as 
+an MLS_LEVEL setting to the crontab file before editing or replacement 
+occurs. See your SELinux documentation for detailed information.
+
+The chapter 6 in our textbook is covering the "cron" subject.
+
+For more information about "cron", I suggest using the following sites:
+
+https://opensource.com/article/17/11/how-use-cron-linux
+https://www.geeksforgeeks.org/cron-command-in-linux-with-examples/
+https://www.tecmint.com/11-cron-scheduling-task-examples-in-linux/
+
+What is "anacron"
+----------------
+Anacron is the cron for desktops and laptops.
+Anacron does not expect the system to be running 24 x 7 like a server.
+
+Please see the following sites for more information:
+
+https://www.geeksforgeeks.org/anacron-command-in-linux-with-examples/
+https://www.thegeekstuff.com/2011/05/anacron-examples/
+https://www.tutorialspoint.com/unix_commands/anacron.htm
+
+
+The "at" command
+----------------
+at is a command-line utility that allows you to schedule commands to be executed at
+a particular time. Jobs created with at are executed only once.
+
+For more information, please see the following sites:
+
+https://linuxize.com/post/at-command-in-linux/
+https://www.geeksforgeeks.org/at-command-in-linux-with-examples/
+
+
