@@ -1,0 +1,111 @@
+
+Some students asked me about "upstart", and what that does.
+The following is a short explanation about "upstart":
+
+Upstart is an event-based replacement for the /sbin/init daemon which handles 
+starting of tasks and services during boot, stopping them during shutdown and 
+supervising them while the system is running.
+
+The SysV boot process is strictly synchronous. Things happen one at a time, 
+blocking future tasks until the current one has completed. If anything in the 
+boot process takes a long time, everything else has to wait. Additionally 
+tasks only run when the init daemon changes state (such as when the machine 
+is powered on or off).
+
+Upstart is a new init daemon that allows services to be started in response 
+to events rather than in bulk runlevels. With each job file in the /etc/init 
+directory being responsible for launching a service or for a specific 
+component of system initialization. There is no fixed sequence; instead each 
+job specifies the events to which it will react. When an event occurs, 
+Upstart starts all jobs that have been waiting for this event, in parallel.
+
+You can theoretically use it even after the system is up and running. Upstart 
+is eventually slated to take over tasks such as or plugging in external 
+devices like thumb drives (currently handled by udev and hal), or running 
+programs at specific times (currently handled by cron).
+
+Upstart was originally developed for the Ubuntu distribution, but is intended 
+to be suitable for deployment in all Linux distributions as a replacement for 
+the venerable System-V init.
+
+
+Systemd completely dominated upstart, and these days, most of the Linux systems
+are using Systemd.
+We already discussed about "systemd" in the previous lesson (lesson9). So, I won't
+discuss about here again.
+
+
+/etc/motd, /etc/motd and /etc/skel
+----------------------------------
+1. /etc/motd
+
+/etc/motd is message of today (bulletin board information), each time the user 
+logs in, the contents of the/etc/motd file are displayed in the user's 
+terminal. The system administrator can edit the system activity message in 
+the file, for example: The administrator notifies the user when the system is 
+upgrading the software or hardware, when the system is maintained, and so on. 
+If the shell supports Chinese, it can also be used in Chinese, which makes it 
+easier to read. /etc/motd disadvantage is that many users now log on to the 
+system when they choose to automatically enter the graphical interface, so 
+this information is often not visible.
+
+2./etc/issue
+
+The/etc/issue file is not used in the same way as the/etc/motd file, the main 
+difference is that when a network user or through a serial port to log on to 
+the system,/etc/issue file content is displayed before the login prompt, 
+and /etc/motd content appears after the user successfully logs on to the 
+system.
+
+3. /etc/skel
+
+The /etc/skel directory contains files and directories that are automatically 
+copied over to a new user's home directory when such user is created by the 
+useradd program.
+
+A home directory, also called a login directory, is the directory on 
+Unix-like operating systems that serves as the repository for a user's 
+personal files, directories and programs, including personal configuration 
+files. It is also the directory that a user is first in after logging into 
+the system. The /etc directory and its subdirectories contain the many 
+important configuration files for the system.
+
+The useradd program is located in the /usr/sbin/ directory, and on most 
+systems it is accessible only by the root (i.e., administrative) user. On 
+some systems this program might be called adduser.
+
+/etc/skel allows a system administrator to create a default home directory 
+for all new users on a computer or network and thus to make certain that all 
+users begin with the same settings or environment.
+
+Several user configuration files are placed in /etc/skel by default when the 
+operating system is installed. Typically they might include .bash_profile, 
+.bashrc, .bash_logout, dircolors, .inputrc and .vimrc. The dots preceding the 
+names of these files indicate that they are hidden files, i.e., files that 
+are not normally visible in order to avoid visual clutter and help reduce the 
+chances of accidental damage.
+
+The contents of /etc/skel can be viewed by using the ls (i.e., list) command 
+with its -a option (which shows all files and directories, including hidden 
+ones), i.e.,
+
+ls -a /etc/skel
+
+The location of /etc/skel can be changed by editing the line that begins with 
+SKEL= in the configuration file /etc/default/useradd. By default this line 
+says SKEL=/etc/skel.
+
+It is usually better to keep /etc/skel as small as possible and put 
+system-wide configuration items into global configuration files such as 
+/etc/profile. This is because the latter makes it much easier to update 
+existing users' files because its settings take effect as soon as the system 
+is turned on and apply to new users and old uses alike.
+
+When a user is removed from the system by an administrator with the userdel 
+command, that user's home directory, including the files and directories that 
+have been copied into it from /etc/skel, remains intact.
+
+The name of the directory skel is derived from the word skeleton, because the 
+files it contains form the basic structure for users' home directories.
+
+

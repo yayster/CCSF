@@ -1,0 +1,266 @@
+File System in Unix/Linux
+-------------------------
+Every modern computer system relies on a filesystem to store and retrieve 
+programs. Not everything can be kept in memory, which is a precious and 
+limited resource, and we need a safe place where to store data when the 
+computer restarts or is shut off. Memory is completely wiped off any time the 
+computer restarts, while the disk structure is persistent.
+
+In this guide I examine in particular the UNIX filesystem, which can be found 
+on macOS and GNU/Linux machines. The Windows filesystem is different, 
+although Windows 10 with the Windows Subsystem for Linux installed allows you 
+to use the same utilities that I describe here.
+
+A filesystem starts from / . This is the root node which hosts the first level 
+directories.
+
+Usual directories that you will find in a UNIX system are
+
+/bin contains the main system commands
+/etc contains the system configuration
+/dev contains the system devices
+/usr contains the user files
+/tmp contains the temporary files
+.
+.
+.
+and so forth.
+
+How many depends on the type of system used. Linux has standardized the 
+folders using its Linux Standard Base effort, and you usually have:
+
+/bin the main system commands
+/boot the files used to boot the machine (not existing on macOS)
+/dev system devices
+/etc system configuration files
+/etc/opt user programs configuration files
+/home the home directories of users (/Users in macOS)
+/lib the system libraries (not existing on macOS)
+/mnt mounted filesystems
+/opt user programs
+/proc user by kernel and processes (not existing on macOS)
+/root the home folder of the root user (not existing on macOS) directory with information about process number 1. Each process has a directory below /proc with the name being its process identification number.
+
+/proc/cpuinfo
+Information about the processor, such as its type, make, model, and performance.
+
+/proc/devices
+List of device drivers configured into the currently running kernel.
+
+/proc/dma
+Shows which DMA channels are being used at the moment.
+
+/proc/filesystems
+Filesystems configured into the kernel.
+
+/proc/interrupts
+Shows which interrupts are in use, and how many of each there have been.
+
+/proc/ioports
+Which I/O ports are in use at the moment.
+
+/proc/kcore
+An image of the physical memory of the system. This is exactly the same size as your physical memory, but does not really take up that much memory; it is generated on the fly as programs access it. (Remember: unless you copy it elsewhere, nothing under /proc takes up any disk space at all.)
+
+/proc/kmsg
+Messages output by the kernel. These are also routed to syslog.
+
+
+/run (not existing on macOS)
+/sbin system binaries user for booting the system
+/tmp temporary files
+/usr holds user software, libraries and tools
+/usr/bin user binaries
+/usr/include user header files
+/usr/lib user libraries
+/usr/local used by user software to store installations, like Homebrew on macOS
+/usr/sbin system binaries
+/usr/share contains architecture-independent data. It can hold a lot of 
+miscellaneous stuff including documentation and man pages
+/usr/src contains the source code of installed packages (not existing in 
+macOS)
+/var contains temporary files, logs and more
+macOS has various different folders, including
+
+/Applications stores the users applications
+/Library holds the library (settings and resources) used globally by users of 
+the system
+/System holds system files
+/private holds system files, logs and more
+Each folder contains files and directories, which in turn can contain other 
+files and directories, and so on.
+
+All files and folders have a name.
+
+What makes a valid name? It can be long from 1 to 255 characters, and it must 
+be composed from any alphanumeric character (a-z/A-Z/0-9), the underscore 
+character (_), dot (.) and comma (,) characters.
+
+You can also use space, although generally not recommended as space needs to 
+be escaped with a backslash every time you must reference the file/folder.
+
+Depending on the system, the filesystem can be case sensitive. On macOS the 
+filesystem is not case sensitive by default, so you can't have a 
+file/folder named test and another called Test. They are the same thing.
+
+I am now going to introduce the various utility commands. Those are executed 
+in the context of a shell, like Bash, Fish or Zsh. When you start a shell, 
+you are going to be in your home directory. In macOS, that is found in the 
+/Users/<yourname>/ path.
+
+The commands don't  change if you change the shell you use, because those 
+are the basic, fundamentals commands of UNIX. You will likely use those 
+commands for many decades unless some revolution in the computing world 
+happens (and they happen, but those server-side things usually move slow). To 
+give you some perspective, the mkdir command you will now see was introduced 
+in UNIX AT&T Version 1, in the early 80s.
+
+Please visit the following sites fpr more information:
+
+https://tldp.org/LDP/intro-linux/html/sect_03_01.html
+http://www.dba-oracle.com/linux/disk_filesystem_commands.htm
+https://flaviocopes.com/unix-filesystem/
+
+The following is a list of major file-system-related commands:
+The are categorized into different categories.
+
+Working with folders and files
+------------------------------
+mkdir
+cd
+pwd
+rmdir
+ls
+touch
+mv
+cp
+ln
+
+Permissions
+-----------
+chmod
+chown
+chgrp
+
+Files content
+-------------
+cat
+less
+find
+cpio
+dd
+wc 
+
+Filesystem 
+----------
+mkfs
+fsck
+mount
+umount
+reject
+
+Since you are familiar with most of the above commands, I'll cover ab out the 
+"Filesystem" commands.
+
+mkfs
+----
+
+The mkfs command stands for make file system is utilized to make a file system.
+please visit the following sites for information:
+
+https://www.geeksforgeeks.org/mkfs-command-in-linux-with-examples/
+https://www.computerhope.com/unix/mkfs.htm
+
+fsck
+-----
+
+fsck (file system check) is a command-line utility that allows you to perform
+consistency checks and interactive repairs on one or more Linux file systems.
+It uses programs specific to the type of the file system it checks.
+
+You can use the fsck command to repair corrupted file systems in situations where
+the system fails to boot, or a partition cannot be mounted.
+
+For more information,  please visit the following sites:
+
+http://www.tecmint.com/fsck-repair-file-system-errors-in-linux/
+https://linuxize.com/post/fsck-command-in-linux/
+
+mount and umount
+----------------
+
+On Linux and UNIX operating systems, you can use the mount command to attach
+(mount) file systems and removable devices such as USB flash drives at a 
+particular mount point in the directory tree.
+
+The umount command detaches (unmounts) the mounted file system from the
+directory tree.
+
+For more information, please visit the following sites:
+https://linuxize.com/post/how-to-mount-and-unmount-file-systems-in-linux/
+
+https://www.geeksforgeeks.org/mount-command-in-linux-with-examples/
+http://www.linfo.org/umount.html
+https://linux.101hacks.com/unix/umount/
+
+eject
+-----
+eject allows ejecting a removable media (typically a CD-ROM, floppy disk, tape,
+or JAZ or ZIP disk) using the software. You can also control some multi-disc
+CD-ROM changers, the auto-eject feature (supported by some devices) and also close 
+the disc tray of some CD-ROM drives. The methods of ejecting depend on the device 
+type, whether it is a CD-ROM, SCSI device, removable floppy, or tape. The default
+action of eject is that it tries all four methods in order until it achieves success.
+The device is unmounted, if it is mounted, before ejecting.
+
+For more information, please visit the following sites:
+
+https://www.computerhope.com/unix/eject.htm
+https://linux.101hacks.com/unix/eject/
+
+/proc filesystem
+----------------
+
+The /proc filesystem contains a illusionary filesystem. It does not exist on a disk.
+Instead, the kernel creates it in memory. It is used to provide information about
+the system (originally about processes, hence the name). Some of the more important
+files and directories are explained below. The /proc filesystem is described in more
+detail in the proc manual page.
+
+/proc/1
+A directory with information about process number 1. Each process has a directory below /proc with the name being its process identification number.
+
+/proc/cpuinfo
+Information about the processor, such as its type, make, model, and performance.
+
+/proc/devices
+List of device drivers configured into the currently running kernel.
+
+/proc/dma
+Shows which DMA channels are being used at the moment.
+
+/proc/filesystems
+Filesystems configured into the kernel.
+
+/proc/interrupts
+Shows which interrupts are in use, and how many of each there have been.
+
+/proc/ioports
+Which I/O ports are in use at the moment.
+
+/proc/kcore
+An image of the physical memory of the system. This is exactly the same size as
+your physical memory, but does not really take up that much memory; it is generated
+on the fly as programs access it. (Remember: unless you copy it elsewhere, nothing
+under /proc takes up any disk space at all.)
+
+/proc/kmsg
+Messages output by the kernel. These are also routed to syslog.
+
+For more information, please visit the following sites:
+
+https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/proc.html
+https://www.geeksforgeeks.org/proc-file-system-linux/
+https://www.tecmint.com/exploring-proc-file-system-in-linux/
+
+
