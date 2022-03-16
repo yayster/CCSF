@@ -1,0 +1,288 @@
+Package manager
+---------------
+A package manager is a tool that allows users to install, remove, upgrade, 
+configure and manage software packages on an operating system. The package 
+manager can be a graphical application like a software center or a command 
+line tool like apt-get or pacman.
+
+What is a package?
+
+Package is usually referred to an application but it could be a GUI 
+application, command line tool or a software library (required by other 
+software programs). A package is essentially an archive file containing the 
+binary executable, configuration file and sometimes information about the 
+dependencies.
+
+The following list shows the names of some well-known package managers in Linux:
+
+Portage
+Pacman
+pkgsrc
+Nix
+AppImage
+YUM
+yay
+Conda
+GNU Guix
+Docker
+Flatpak
+eopkg
+
+In the following, a short explanation about some package managers is given:
+
+rpm
+This the package management system used by Linux Standard Base 
+(LSB)-compliant distributions for the low-level handling of packages. Just 
+like dpkg, it can query, install, verify, upgrade, and remove packages, and 
+is more frequently used by Fedora-based distributions, such as RHEL and 
+CentOS.
+
+dpkg
+It is a low-level package manager for Debian-based systems. It can install, 
+remove, provide information about and build *.deb packages but it can’t 
+automatically download and install their corresponding dependencies.
+
+apt-get
+It's a high-level package manager for Debian and derivatives and provides a 
+simple way to retrieve and install packages, including dependency resolution, 
+from multiple sources using the command line. Unlike dpkg, apt-get does not 
+work directly with *.deb files, but with the package proper name.
+
+yum
+It adds the functionality of automatic updates and packages management with 
+dependency management to RPM-based systems. As a high-level tool, like 
+apt-get or aptitude, yum works with repositories.
+
+aptitude
+It's another high-level package manager for Debian-based systems, and can be 
+used to perform management tasks (installing, upgrading, and removing 
+packages, also handling dependency resolution automatically) in a fast and 
+easy way. It provides the same functionality as apt-get and additional ones, 
+such as offering access to several versions of a package.
+
+dnf
+DNF, short for Dandified Packaging Tool, is a more modernized and advanced 
+version of the YUM manager – incorporating the features of YUM while 
+improving performance and resource usage. For now, only Fedora has utilized 
+this next-generation version of YUM, but hopefully, we will see it spread to 
+more operating systems in the future.
+
+pacman
+Pacman is the package manager found on Arch Linux. Pacman is the only package 
+management tool found on Arch, making it not a front end. Arch Linux is a 
+rolling release operating system, with updates, added every day. There are 
+only a few commands with Pacman, intended for searching, installing, and 
+removing packages. This package manager can connect to the internet and 
+acquire its packages from there, making it more user-friendly. However, 
+Pacman is intended for installing software from the Arch repository, 
+rendering it unable to install from third-party repositories.
+
+portage
+Portage is the package manager for Gentoo, a no-frills operating system that 
+has to be compiled from scratch when installing on any system. It is one of 
+the most advanced package managers currently available, with new features and 
+improvements being added continuously.
+
+up2date
+up2date, also known as the Red Hat Update Agent, is a tool used by older 
+versions of Red Hat Enterprise Linux, CentOS, and Fedora Core that downloads 
+and installs new software and upgrades the operating system. It functions as 
+a front-end to the RPM Package Manager and adds advanced features such as 
+automatic dependency resolution. The file /etc/sysconfig/rhn/sources specify 
+where up2date will search for packages.
+
+abs
+ABS, short for Arch Build System, is a system of tools intended for creating 
+installable software packages for Arch Linux out of source code. This 
+consists of several tools functioning together to create packages – these 
+tools are all independent programs, such as makepkg, pacman, asp, and so on. 
+The package creation/installation method using ABS differs from a 
+conventional Linux distribution. Instead of installing pre-compiled packages, 
+you need the PKGBUILD file to be created from an Svn or Git branch by using 
+the asp package.
+
+
+
+urpmi
+urpmi is a package management tool for installing, removing, updating and 
+querying software packages of local or remote (networked) media. It wraps 
+around the RPM Package Manager (RPM) package manager so that the user will 
+not suffer the often-encountered[citation needed] dependency hell. It works 
+with official sources from Mandriva or unofficial sources such as those from 
+the Penguin Liberation Front. It has a graphical front-end: Rpmdrake.
+
+ZYpp
+ZYpp is another dependency resolver for the RPM package management system and 
+is the default package manager for OpenSUSE and SUSE Linux Enterprise. ZYpp 
+utilizes .rpm binaries, just like YUM, but is a bit faster due to being 
+written in C++, where YUM is written in Python. ZYpp is extremely easy to 
+use, as it includes command shortcuts which can be used in place of the full 
+command.
+
+Nix
+Nix is a purely functional package management system. This means that the act 
+of building a package does not have side effects, such as destructively 
+updating or deleting files that may be used by other packages. Nix makes it 
+easy for systems to use multiple versions of the same package simultaneously, 
+and ensure that updating or removing a package can't break other packages. 
+Furthermore, these actions are atomic, and so the system can't be left in an 
+unstable state. This all means that behavior with Nix is very predictable, 
+which is particularly useful in testing configurations and deploying across 
+multiple systems.
+
+Synaptic
+Synaptic is a GTK+-based graphical user interface for APT (Debian). This 
+package management system used by Debian and its derivatives. Synaptic is 
+usually used on systems based on deb packages but can also be used on systems 
+based on RPM packages. It can be used to install, remove and upgrade software 
+packages and to add repositories.
+
+URPMI
+URPMI is Mageia command line tool for managing packages and repositories 
+(media). It’s a powerful command-line tool which is used to automatically 
+download and install new software packages, upgrade existing software 
+packages, update the package list index, and to upgrade the entire Mageia 
+system. urpmi handles dependencies automatically.
+
+Flatpak
+Flatpak is a software utility for software deployment, package management, 
+and application virtualization for Linux desktop computers. It provides a 
+sandbox environment in which users can run applications in isolation from the 
+rest of the system. Applications using Flatpak need permission from the user 
+to control hardware devices or access the user's files.
+
+Entropy
+Entropy is the default package management system for Sabayon Linux, a Gentoo 
+derivative. What makes Entropy interesting is Sabayon utilizes binary files 
+through Entropy, and also source code through Gentoo package management 
+system, Portage.
+
+SNAP
+Snap packages are secure, isolated from each other and the host system using 
+technologies such as AppArmor, It’s cross-platform, self-contained, 
+allowing a developer to package the exact software their application needs. 
+This sandboxed isolation also improves security and allows applications, and 
+whole snap-based systems, to be rolled back should an issue occur. It has 
+many advantages over the more traditional package formats such as .deb, .rpm, 
+and others. Snaps use a special YAML formatted file named snapcraft.yaml. 
+Snaps really are the future of Linux application packaging.
+
+Slackware
+Packages in Slackware Linux are distributed as compressed tarballs, generally 
+using gzip or lzma compression. These tarballs can be recognized by their 
+suffixes, .tgz or .txz. This format includes a complete filesystem layout, as 
+well as additional scripts to be run upon installation or removal of the 
+software. Slackware packages do not offer dependency resolution information; 
+this is generally viewed as allowing more flexibility and control. Packages 
+can also be built using SlackBuilds, shell scripts that compile source or 
+repackage binary distribution packages for easy installation and removal on 
+Slackware.
+
+In the following, I am discussing about two of the most well-known package 
+manager for Ubuntu and RedHat distros:
+
+The apt-get package manager command is used in Ubuntu.
+I am showing how to use it in the following:
+
+To install a package using apt-get, type in the following command:
+
+sudo apt-get install <package_name>
+
+If you need to install more than one package, you can speed up the installation
+process by installing multiple packages at the same time with a single command:
+
+sudo apt-get install <package_name1> <package_name2> <package_name3>
+
+You can remove a package with the remove command:
+
+sudo apt-get remove <package_name> 
+
+However, this command only removes the package, leaving its configuration files on 
+the system. If you want to remove the package along with its configuration 
+files, use the command:
+
+sudo apt-get purge <package_name> 
+
+To clean the local repository of retrieved package files, use the command:
+
+sudo apt-get clean
+
+Another way to empty the local repository of retrieved files is to use autoclean
+to clear out packages that are no longer available, use the command:
+
+sudo apt-get autoclean
+
+You can browse through all the available packages in the repository with the
+command:
+
+apt-cache pkgnames
+
+
+if you want to read a description of a package before you install it, you can do so
+by running the command:
+
+apt-cache search <package_name>
+
+
+If you know the exact name of the package you wish to install, but want to see all 
+the information regarding that package, use the following command:
+
+apt-cache showpkg <package_name>
+
+
+You can search through a list of dependencies a package has, along with all other
+possible packages that can fulfill that dependency with the command:
+
+apt-cache depends pkg <package_name>
+
+
+In case you want to inspect which packages you already have on your system, you
+can do so with:
+
+apt-cache pkgnames <package_name>
+
+----------------------------------------------------------------------------------
+The yum package manager command is used in RedHat.
+
+Yum is an interactive, rpm based, package manager. It can automatically perform
+system updates, including dependency analysis and obsolete processing based on
+"repository" metadata. It can also perform installation of new packages, removal
+of old packages and perform queries on the installed and/or available packages
+among many other commands/services (see below). yum is similar to other high level
+package managers like apt-get and smart.
+
+While there are some graphical interfaces directly to the yum code, more recent
+graphical interface development is happening with PackageKit and the
+gnome-packagekit application.
+
+command is one of: 
+yum install package1 [package2] [...] 
+yum update [package1] [package2] [...] 
+yum check-update 
+yum upgrade [package1] [package2] [...] 
+yum remove | erase package1 [package2] [...] 
+yum list [...] 
+yum info [...] 
+yum provides | whatprovides feature1 [feature2] [...] 
+yum clean [ packages | headers | metadata | dbcache | all ] 
+yum makecache 
+yum groupinstall group1 [group2] [...] 
+yum groupupdate group1 [group2] [...] 
+yum grouplist [hidden] [groupwildcard] [...] 
+yum groupremove group1 [group2] [...] 
+yum groupinfo group1 [...] 
+yum search string1 [string2] [...] 
+yum shell [filename] 
+yum resolvedep dep1 [dep2] [...] 
+yum localinstall rpmfile1 [rpmfile2] [...] 
+yum localupdate rpmfile1 [rpmfile2] [...] 
+yum reinstall package1 [package2] [...] 
+yum downgrade package1 [package2] [...] 
+yum deplist package1 [package2] [...] 
+yum repolist [all|enabled|disabled] 
+yum help [command]
+
+
+For more information please read chapter 8 "Package Management" in our textbook.
+
+
