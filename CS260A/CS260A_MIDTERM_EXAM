@@ -1,0 +1,61 @@
+                                     CS260A Midterm Exam
+                                     -------------------
+
+Due date: 3/16/2022.
+Please email me your midterm answers no later than 4:00 P.M.
+Each question is worth 4 points.
+
+
+1) Create an account called temp_empl. This account should be expired on 5/15/28 .
+
+sudo adduser temp_empl && sudo chage -E 2028-05-15 temp_empl
+
+
+2) How would you lock all of those user's accounts which are using ksh?
+
+grep -P '/bin/ksh' /etc/passwd | awk -F : '{ print $1 }' | sudo xargs usermod -L  
+
+3) What does the following line do in /etc/sudoers ? 
+
+   wall  wall = (wall) /bin/wall
+
+the user wall can run the wall command with no issue
+
+
+4) The default shell for any newly created user's account is /bin/bash . How
+   would you change it to /bin/ksh? Your change will affect all of the accounts
+   that will be created from now on. 
+
+sudo useradd -D -s /bin/ksh
+
+5) What does the following command do?
+
+    chage  -d  0  jlin
+
+Allows jlin to change there password at anytime
+
+6) Please show how to count number of crontab files on your system.
+
+sudo ls /var/spool/cron/crontabs | wc -l
+
+7) Without using /etc/cron.deny, please show how would you allow everybody to
+   use the cron facility on your system.
+
+ensure that the file /etc/cron.allow does not exist
+
+8) What do the following lines do in your crontab file?
+
+   */5  *  *  *  *  cp  /dev/null  /usr/master_file
+   0  *  *  *  *   /usr/cleanup
+
+very 5 minutes zero out the file /usr/master_file
+and every hour run the /usr/cleanup file
+
+
+9) Please create an account for alex with the user-id of 850  and /bin/csh shell.
+
+sudo useradd -u 850 -s /bin/csh
+
+10) Please show how to delete those accounts with the uid in the range of 2500-3000.
+
+getent passwd {2500..3000} | awk -F : '{ print $1 }' | sudo xargs userdel
