@@ -1,0 +1,158 @@
+<<< operator
+------------
+<<< is known as here-string. Instead of typing in text, you give a pre-made 
+string of text to a program. For example, with such program as bc we can do
+bc <<< 5*4 to just get output for that specific case, no need to run bc
+interactively. Think of it as the equivalent of echo '5*4' | bc.
+
+examples: 
+sed 's/a/b/g' <<< "aaa"
+would result in:  "bbb"
+or
+read first second <<< "hello world"
+would result in: first="hello" and second="world" .
+
+
+
+<() operator
+-------------
+<(command) is "process substitution". Basically, it creates a special type of
+file called a "named pipe," then redirects the output of the command to be the
+named pipe. So for example, suppose you want to page through a list of files in
+an extra-big directory. You could do this:
+
+ls /usr/bin | more
+Or this:
+
+more <( ls /usr/bin )
+
+Another Example:
+
+while read line; do
+    echo "length of the line is: ${#line} "
+done <  <(getent passwd | grep "^w")
+
+
+tac command
+-----------
+tac is opposite to cat in the sense that the output it produces is presented 
+in a way that the last line is displayed first, then the second last line, 
+and so on. 
+
+yes command
+-----------
+The yes command outputs the same string, STRING, in a constant stream. If STRING is not specified, the word it repeats is "y".
+
+
+yes  | rm -i *.txt
+
+shuf command
+------------
+The shuf command generates random permutations from input lines to standard
+output. If given a file or series of files it will shuffle the lines and write
+the result to standard output. It can also limit the number of results returned
+supporting selecting random lines from a file or data from a list.
+
+shuf myfile
+
+would display the shuffeled lines of the file "myfile". 
+
+To pick a random line from a file using shuf use the -n option. This limits the
+output to the number specified.
+
+shuf -n 1 myfile
+will select a random line from the file and displays that line.
+
+To select more than file lines change the number.
+
+shuf -n 5 myfile
+
+To shuffle the items from the command line:
+
+shuf -e one two three
+
+
+To shuffle range of numbers:
+
+shuf -i 5-10
+
+units command
+-------------
+The units command converts quantities expressed in one measurement to their
+equivalents in another. The units command is an interactive command. It prompts
+you for the unit you want to convert from and the unit you want to convert to.
+This command only does multiplicative scale changes. That is, it can convert
+from one value to another only when the conversion involves a multiplication.
+For example, it cannot convert between degrees Fahrenheit and degrees Celsius
+because the value of 32 must be added or subtracted in the conversion.
+
+You can specify a quantity as a multiplicative combination of units, optionally
+preceded by a numeric multiplier.
+
+Indicate powers by entering suffixed positive integers, and indicate division
+with a / (slash).
+
+The units command recognizes lb as a unit of mass, but considers pound to be the
+British pound sterling. Compound names are run together (such as lightyear).
+Prefix British units differing from their American counterparts with br (brgallon,
+for instance).
+
+The /usr/share/lib/unittab file contains a complete list of the units that
+the units command uses. You can also define new units in this file. The File
+parameter may be used to override the values of the standard conversion factors
+listed in the /usr/share/lib/unittab file. The specified file must follow the
+same format as the unittab file.
+
+Most familiar units, abbreviations, and metric prefixes are recognized by the 
+units command, as well as the following:
+
+pi	Ratio of circumference to diameter
+c	Speed of light
+e	Charge on an electron
+g	Acceleration of gravity
+force	Same as g
+mole	Avogadro's number
+water	Pressure head per unit height of water
+au	Astronomical unit
+
+watch command
+-------------
+To repeatedly run a command or job in regular time intervals while working in
+Linux, you can use cron jobs or bash scripts. However, Linux also offers a more
+straightforward, built-in solution - the watch command.
+
+watch command updates the output every two seconds. Press Ctrl+C to exit out of
+the command output.
+
+The watch command is useful when you need to monitor changes in a command output
+over time. This includes disk usage, system uptime, or tracking errors.
+
+The watch command uses the following syntax:
+
+watch [option] [command]
+
+Where:
+
+[option]: Adding an option changes the way the watch command behaves.
+Available options are listed below.
+[command]: A user-defined command you want to run repeatedly.
+The watch command options include:
+
+-n, --interval	Allows you to specify the interval between output updates.
+-d, --differences	Highlights the differences between output updates.
+-g, --chgexit	Exits the watch command when the output of the user-defined
+                command changes.
+-t, --no-title	Removes the header showing the interval, command, and current
+                time and date.
+-b, --beep	Plays a sound alert (beep) if the command exits with an error.
+-p, --precise	Attempts to run the command after the exact number of seconds
+                defined by the --interval option.
+-e, --errexit	Stops output updates on error and exits the command after a key press.
+-c, --color	Interprets ANSI color and style sequences.
+-x, --exec	Passes the user-defined command to exec, reducing the need for
+                extra quoting.
+-w, --no-linewrap	Turns off line wrapping and truncates long lines
+                instead.
+-h, --help	Displays help text and exits.
+-v, --version	Displays version information and exits.
+

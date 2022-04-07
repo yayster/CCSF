@@ -1,0 +1,56 @@
+                                    CS260A Homework #5
+                                    ------------------
+
+
+   Due date: March/28/22
+   Please email me your answers to this homework assignment.
+
+
+   
+   1) We would like to let those users whose login-ids consist of only 2
+      letters and are using bash to use the cron facility.
+      Please show how would you do that. (5 points)
+
+grep -P '/bin/bash' /etc/passwd | grep -P '^..:' | awk -F : '{ print $1 }' | while read line; do
+  sudo echo $line >> /etc/cron.allow
+done
+
+   2) In the crontab file, please explain the meaning of the following records:
+      (5 points)
+
+
+      1  1  1  1  1  cleanup.sh
+
+On the first minute
+Of hour 1
+on the first day
+of January
+and it is a Monday
+execute cleanup.sh
+
+      */2 * * * *    cleanup.sh
+
+every two minutes execute cleanup.sh
+
+
+   3) What is an appropriate name for the following function? (5 points)
+
+
+      ?????()
+      {
+         getent  passwd | nl | tail -1 | awk  '{print $1}'
+      }
+
+NumberOfAccounts
+
+   4) Please show how to remove the crontabs of all your users whose login-ids
+      begins with the letter 'd'. Please note that we have used cron.allow to
+      activate the crontab facility for those users.   (5 points).
+
+
+grep -P '^d' /etc/passwd | awk -F : '{ print $1 }' | while read line; do
+  sudo crontab -r -u $line
+  sudo sed -i "/$line/d" /etc/cron.allow
+done
+
+

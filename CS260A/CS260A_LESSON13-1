@@ -1,0 +1,66 @@
+Time, Date and Timezone administration
+--------------------------------------
+We have 2 types of time. The first one is "system time", and the second one is 
+"hardware dlock time".
+In the ideal situation, these 2 should be the same, but in some situations they
+are different.
+
+At the beginning, we are talking about the system time and date.
+
+The command  timedatectl would provide a comprehensive output about the current
+time and timezone.
+
+The /etc/localtime is a symbolic link to binary time identifier in /usr/share/zoneinfo
+directory.
+ls -l /etc/localtime    would verify that.
+
+To change the timezone, we need to get the list of all timezones in the world.
+
+timedatectl list-timezone  would do it for us.
+
+In California, we are doing the following:
+
+timedatectl set-timezone America/Los_Angeles 
+In some system (like Ubuntu), we can put  America/Los_Angeles in the file 
+/etc/timezone
+
+We can also do the following:
+ln -s /usr/share/zoneinfo.America/Los_Angeles  /etc/localtime
+
+The command:
+tzselect would help the user to select the right timezone.
+
+We can also use:
+
+timedatectl list-timezones
+
+To set the time we do:
+
+timedatectl set-time HH:MM:SS
+
+To set time and date we do:
+
+timedatectl set-time YYYY-MM-DD  HH:MM:SS 
+
+------------------------------------------------------------------------------
+To show the current hardware clock:
+hwclock -r
+
+To set the hardware clock to the system clock:
+hwclock -w
+OR
+hwclock --systohc
+
+To set system clock to the hardware clock:
+
+hwclock -s 
+OR
+hwclock --hctosys
+
+To set the hardware clock manually:
+
+hwclock --set  --date  8/11/2020
+OR
+hwclock --set  --date  "8/11/2020 23:10:45"
+
+

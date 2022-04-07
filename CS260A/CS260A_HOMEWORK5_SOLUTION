@@ -1,0 +1,47 @@
+                            Solution to the homework #5
+                            ---------------------------
+
+1) We would like to let those users whose login-ids consist of only 2
+   letters and are using bash to use the cron facility.
+   Please show how would you do that. (5 points)
+
+   ANSWER:
+   getent passwd | grep "/bash$" | cut -d: -f1 | grep '^[a-zA-Z]\{2\}$' >> /etc/cron.allow
+	
+
+
+   2) In the crontab file, please explain the meaning of the following records:
+      (5 points)
+
+
+      1  1  1  1  1  cleanup.sh
+
+   ANSWER
+ 
+Run cleanup.sh at 1:01 AM January 1st, and also at 1:01 AM on Mondays in January
+
+
+      */2 * * * *    cleanup.sh
+
+Run cleanup.sh every two minutes
+
+
+
+3) What is an appropriate name for the following function? (5 points)
+
+      ?????()
+      {
+         getent  passwd | nl | tail -1 | awk  '{print $1}'
+      }
+
+   ANSWER
+num_users is an appropriate name.
+
+4)
+
+   ANSWER
+
+   while read login_id; do
+      crontab -r -u $login_id
+   done <  <(grep '^s' /etc/cron.allow)
+

@@ -1,0 +1,81 @@
+Commands in Linux
+-----------------
+
+There are 2 types of commands on Linux:
+
+  1) commands with binary files located in /bin, /usr/bin, /sbin, and /usr/sbin .
+  2) built-in commands.
+
+  The first group are files that are normally written in C/C++ and compiled to
+  binary, and saved in one of the above mentioned directories. Such as ls, mv, ln,
+  cat, etc.
+
+  The second group are embedded inside the shell.
+  Many built-in commands have also the binary versions too. For example, pwd
+  is a built-in command, but also has a binary in /bin directory.
+
+  For efficiency reason, built-in commands are preferred, and are running by
+  default. It simply means, if we type the pwd command, the built-in version is
+  normally executed.
+  
+  The help command would display all of the built-in commands, and their option(s).
+  We can also use the type command to determine whether a program is built-in or
+  not:
+
+  type  -a  pwd
+  would give us:
+  pwd is a shell built-in
+  pwd is /bin/pwd
+
+  The built-in commands execute faster than their counterparts in /bin or /usr/bin.
+  This is because there is no overhead of looking for the command in those directories
+  and then loading the command into memory for execution.
+
+  Please note that, built-in commands do not start a separate process when they
+  are executed. So, they are more economical than their binary counterparts.
+
+  Among the most often used built-in commands , cd, echo, help, history, pwd and
+  limits need to be mentioned.
+
+  We can instruct the Bash shell to explicitly run a built-in command with the
+  "builtin" command. For example    builtin pwd .
+
+   If we want to run the binary version, then we can use the "command" command.
+   For example:     command pwd .
+   
+   We can also use the "enable" command to enable or disable the use of a built-in
+   command.
+
+   for example:
+   enable -n pwd
+   will disable the built-in command, and   enable echo
+   will enable the built-in version of the echo command.
+
+------------------------------------------------------------------------------------
+
+Logrotate
+---------
+
+The logrotate program
+The logrotate program is a log file manager. It is used to regularly cycle (or rotate)
+log files by removing the oldest ones from your system and creating new log files.
+It may be used to rotate based on the age of the file or the files size, and usually
+runs automatically through the cron utility. The logrotate program may also be used
+to compress log files and to configure e-mail to users when they are rotated.
+
+The logrotate configuration
+The logrotate program is configured by entering options in the /etc/logrotate.conf file.
+This is a text file, which may contain any of the configuration options listed in the
+table below. The options entered in /etc/logrotate.conf may be used to set configuration
+parameters for any log file on the system. These options may also be used to allow
+logrotate to read configuration parameters from other log files, by using the include
+parameter.
+
+
+There are many good sites on Internet discussing about the logrotate subject.
+I suggest the following ones:
+
+https://www.techrepublic.com/article/manage-linux-log-files-with-logrotate/
+https://www.tecmint.com/install-logrotate-to-manage-log-rotation-in-linux/
+https://linuxconfig.org/setting-up-logrotate-on-redhat-linux
+
