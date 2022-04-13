@@ -1,0 +1,20 @@
+                                      CS260A Quiz#1
+                                      -------------
+
+Please e-mail me your answers to the quiz.
+Each question is worth 10 points.
+due date: 4/18/22 at 4:00 P.M.
+
+1) We would like to archive and compress all of the files that are larger than
+   5 meg. After making the archive, those files need to be removed from the 
+   system, and the archive needs to be moved to the flash memory that is already
+   attached to our /media/TOSHIBA7.4 folder.
+   For your information, moving a file to your flash memory can be simply done
+   by:
+   mv  your_file /media/TOSHIBA7.4/
+
+
+
+
+2) Please show how to empty the entire /tmp directory after reboot.
+   NOTE: you need to use the cron facility to do this task.

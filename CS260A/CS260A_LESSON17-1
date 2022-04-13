@@ -1,0 +1,109 @@
+In CS260A_LESSON16 I talked about the "login" process, wtmp, utmp and btmp files.
+As I already mentioned, these 3 files are in binary format and we can not use 
+utilities such as "cat", "more" and  "less to display their contents. 
+
+On most Linux distros, thew full paths for these 3 files are:
+
+/var/run/utmp and /var/log/wtmp and /var/log/btmp.
+But on some other systems they are located on /etc/utmp, /var/adm/wtmp, /etc/btmp .
+
+The wtmp and utmp files are providing valuable information for many commands on
+Unix/Linux systems such as "who", "w", and "utmpdump".  
+We all are familiar with the "who" and "w" commands. In the following, I will talk
+about "utmpdum" :
+
+utmpdump is a utility to dump the system audit logs called utmp, wtmp, and btmp.
+For example:
+
+utmpdump /var/run/utmp 
+utmpdump /var/log/wtmp
+utmpdump /var/log/btmp
+
+options are:
+
+       -f, --follow
+              Output appended data as the file grows.
+
+       -o, --output file
+              Write command output to file instead of standard output.
+
+       -r, --reverse
+              Undump, write back edited login information into the utmp or wtmp files.
+
+       -V, --version
+              Display version information and exit.
+
+       -h, --help
+              Display help text and exit.
+
+
+Some examples:
+
+
+Use the following command to convert the binary file into an editable file wtmp.file
+
+utmpdump/var/log/wtmp >/var/log/wtmp.file
+
+Now we can edit /var/log/wtmp.file to delete some login records, or modify login records
+
+
+Now we can convert the file back to binary file
+
+utmpdump  -r </var/log/wtmp.file >/var/log/wtmp
+
+After the modification is completed, the last command can be used to view the
+modification result.
+
+/var/log/wtmp is usually rotated (or just cleared) by a monthly cron job, or with
+a config file in /etc/logrotate.d/
+
+For example: on the  Debian system, all the lines in /etc/logrotate.d/wtmp are 
+commented out, but /etc/cron.monthly/acct (from the acct GNU Accounting Utilities
+package) rotates it and generates a monthly report (/var/log/wtmp.report).
+
+Check to see if you have /var/log/wtmp.1, /var/log/wtmp.2, etc. Possibly compressed
+with .gz filename extensions.
+
+You can use last's -f option to view the records in other wtmp files. e.g.
+
+last -f /var/log/wtmp.1
+From man last:
+
+-f, --file file
+
+Tell last to use a specific file instead of /var/log/wtmp. The --file option can
+be given multiple times, and all of the specified files will be processed.
+
+BTW, last -f can't read a compressed wtmp file. If it's compressed, you'll have to
+gunzip it first.
+
+
+Compressors
+-----------
+
+Compressors are programs that are compressing files. Compressed files are much 
+smaller than the original files, and using less space.
+There are several compressors in Unix/Linux, but gzip and bzip2 are among the most
+popular ones.
+The following site is talking about gzip:
+https://linuxize.com/post/gzip-command-in-linux/
+And the following one is talking about bzip2:
+https://www.howtoforge.com/linux-bzip2-command/
+
+Archiver
+--------
+
+Archiving is a process of placing group of files and folders in another file.
+It is similar to place many of our items in our handbag or briefcase.
+There are several archivers available in Unix/Linux, but among them, "tar"
+and "cpio" are the most popular ones.
+The following sites are discussing about the "tar" command:
+
+https://www.howtogeek.com/248780/how-to-compress-and-extract-files-using-the-tar-command-on-linux/
+
+https://www.geeksforgeeks.org/tar-command-linux-examples/
+
+And the following is talking about "cpio":
+
+https://www.geeksforgeeks.org/cpio-command-in-linux-with-examples/
+
