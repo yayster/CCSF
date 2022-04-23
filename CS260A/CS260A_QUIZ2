@@ -2,6 +2,13 @@
                                  --------------
 Please email me your answers by 4/25/22.
 
+NOTE: forgot my password for silver and copper.
+
+NOTE:
+[dkayal@hills ~]$ tail -n 3 ~/.bash_profile 
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/QUIZ2
+
+export PATH
 
 1) Without using the "ps" command, please make a function "psnum" to display the number
    of the processes currently on the system. Your answer should work on hills, silver
@@ -12,7 +19,39 @@ Please email me your answers by 4/25/22.
    total size of the memory (in killo byte). Your answer should work on hills, silver
    and copper servers. (8 points).
 
+[dkayal@hills ~]$ . quiz2.sh
+[dkayal@hills ~]$ psnum
+389
+[dkayal@hills ~]$ memsize
+12118824 kB
+[dkayal@hills ~]$ cat QUIZ2/quiz2.sh
+#!/bin/sh
+
+psnum () {
+    ls /proc | grep -P '^\d*$' | wc -l
+}
+
+memsize () {
+    head -n 1 /proc/meminfo | awk '{ print $2 " " $3 }'
+}
+[dkayal@hills ~]$
+
 
 3) Write a shell script to test your psnum and memsize functions (4 points).
 
+[dkayal@hills ~]$ quiz2_test.sh 
+393
+393
+12118824 kB
+              total        used        free      shared  buff/cache   available
+Mem:       12118824     1747160     6811976      392892     3559688     9656740
+Swap:       8388604      508100     7880504
+[dkayal@hills ~]$ cat QUIZ2/quiz2_test.sh
+#!/bin/sh
+
+. quiz2.sh
+psnum
+ps aux | wc -l
+memsize
+free
 
