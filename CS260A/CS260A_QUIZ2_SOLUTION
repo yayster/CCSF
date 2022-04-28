@@ -1,0 +1,43 @@
+                                 CS260A Quiz #2 Solution
+                                 -----------------------
+
+1) Without using the "ps" command, please make a function "psnum" to display the number
+   of the processes currently on the system. Your answer should work on hills, silver
+   and copper servers. (8 points).
+
+
+2) Without using the "free" command, please make a function "memsize" to display the 
+   total size of the memory (in killo byte). Your answer should work on hills, silver
+   and copper servers. (8 points).
+
+
+3) Write a shell script to test your psnum and memsize functions (4 points).
+
+#!/bin/bash
+# 
+# Author:  abbas 
+# Date  :  04/21/22 
+# Program Name: answer_to_quiz2 
+# Objective: Solution to Quiz2 
+
+
+psnum()
+{
+   cd /proc
+   ls | grep "^[0-9]*$" | wc -l
+}
+
+memsize()
+{
+   cd /proc
+   cat meminfo | grep -i "memtotal" | awk '{print $2}'
+}
+
+psnum
+
+# The following line should produce the same result as "psnum". 
+ps -ef | wc -l
+
+memsize
+
+

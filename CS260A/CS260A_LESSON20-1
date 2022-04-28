@@ -1,0 +1,103 @@
+In this lesson, we would like to talk about "SELinux".
+
+Security Enhanced Linux or SELinux is an advanced access control mechanism built 
+into most modern Linux distributions. It was initially developed by the US 
+National Security Agency to protect computer systems from malicious intrusion 
+and tampering. Over time, SELinux was released in the public domain and various 
+distributions have since incorporated it in their code.
+
+
+SELinux is the security implementation which enhances system security and in 
+the event of security breach, it stops that from spreading in entire system. 
+
+It implements MAC (Mandatory Access control) over already present DAC 
+(Discretionary Access Control ) i.e. read, write , execute permissions.
+
+Suppose we are running a web server which hosts several websites. To allow 
+access on websites we have to open several ports in firewall. Hackers may use 
+these ports to crack the system through the security exploits. And if that 
+happens, hackers will gain the access permission of web server process. To 
+serve web pages, usually a web server process has read permission on document 
+root and write permission on the /tmp and /var/tmp directory. With this 
+permission, hackers can write malicious scripts in /tmp directory which can be 
+used to hack other services available on server. This way one infected process 
+can cause a huge security rick to all services running on server.
+
+If SELinux is enabled, hackers will not be able to access the other services 
+available on sever as well as they will not be able to write anything in /tmp 
+or /var/tmp directory.
+
+SELinux Modes
+-------------
+SELinux works in three modes; Disable, Permissive and Enforcing. In disable 
+mode SELinux remains completely disable. If SELinux is enabled, it will be in 
+either Permissive mode or in Enforcing mode. In permissive mode SELinux will 
+only monitor the interaction. In enforcing mode SELinux will also filter the 
+interaction with monitoring.
+
+Default configuration file to change these modes is /etc/selinux/config,
+The /etc/selinux/config configuration file controls whether SELinux is enabled 
+or disabled, and if enabled, whether SELinux operates in permissive mode or 
+enforcing mode. The SELINUX variable may be set to any one of disabled, 
+permissive, or enforcing to select one of these options. The disabled option 
+completely disables the SELinux kernel and application code, leaving the system 
+running without any SELinux protection. The permissive option enables the 
+SELinux code, but causes it to operate in a mode where accesses that would be 
+denied by policy are permitted but audited. The enforcing option enables the 
+SELinux code and causes it to enforce access denials as well as auditing them. 
+Permissive mode may yield a different set of denials than enforcing mode, both 
+because enforcing mode will prevent an operation from proceeding past the first 
+denial and because some application code will fall back to a less privileged 
+mode of operation if denied access.
+
+The /etc/selinux/config configuration file also controls what policy is active 
+on the system. SELinux allows for multiple policies to be installed on the 
+system, but only one policy may be active at any given time. At present, two 
+kinds of SELinux policy exist: targeted and strict. The targeted policy is 
+designed as a policy where most processes operate without restrictions, and 
+only specific services are placed into distinct security domains that are 
+confined by the policy. For example, the user would run in a completely 
+unconfined domain while the named daemon or apache daemon would run in a 
+specific domain tailored to its operation. The strict policy is designed as a 
+policy where all processes are partitioned into fine-grained security domains 
+and confined by policy. It is anticipated in the future that other policies 
+will be created (Multi-Level Security for example). You can define which policy 
+you will run by setting the SELINUXTYPE environment variable within 
+/etc/selinux/config. The corresponding policy configuration for each such 
+policy must be installed in the /etc/selinux/SELINUXTYPE/ directories.
+
+A given SELinux policy can be customized further based on a set of compile-time 
+tunable options and a set of runtime policy booleans. system-config-selinux 
+allows customization of these booleans and tunables.
+
+Many domains that are protected by SELinux also include selinux man pages 
+explaining how to customize their policy.
+
+Lets take an example. Suppose an ftp user want to access his home directory. 
+So he accesses the shell prompt and executes the following command
+
+$ftp LinxuServer.com
+
+At LinuxServer system following will happen: -
+
+A SysCall (System Call) will be generated for FTP server.
+If SELinux is disabled, SysCall will be processed normally.
+If SELinux is enabled, all Syscall will be processed through it.
+SELinux will log the Syscall in /var/log/audit/audit.log file.
+If SELinux enable mode is set to Permissive, Syscall will be processed normally.
+If SELinux enable mode is set to Enforcing, Syscall will be checked against the 
+security policies and will be processed only if it has the required permission.
+
+SELinux Commands
+----------------
+sestatus
+setenforce
+getenforce
+semanage
+
+To learn how to use the commands in SELinux, please visit the following sites:
+
+https://searchdatacenter.techtarget.com/tip/SELinux-tutorial-Commands-and-management
+https://linuxhint.com/basic-selinux-commands/
+https://phoenixnap.com/kb/enable-selinux-centos
+
