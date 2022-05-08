@@ -1,0 +1,84 @@
+#!/bin/bash
+
+course=30821
+filepath=/var/log/wtmp
+
+read -d '' USAGE<<EOF
+
+     show_them <option> <CRN>
+     options are:
+
+     f) Check against the file specified
+
+     Examples:
+
+     show_them
+     show_them -f /var/run/utmp
+     show_them 34553
+     show_them -f /var/run/utmp 34577
+
+EOF
+
+is_crn_in_proper_format () {
+    REGEX0='^c[0-9]{5}'
+    if [[ ! ${CRN} =~ ${REGEX0} ]]
+    then
+	echo "Improper CRN format with ${OPTARG}!"
+	echo "At CCSF, each course is represented by a unique 5-digit number."
+	echo "This number is called \"CRN\". For example 32569 is a CRN number."
+	exit 999
+    fi
+}
+
+does_crn_exist () {
+    is_crn_in_proper_format ${CRN}
+    RESULT=$(grep -P "^${CRN}" /etc/group)
+    if [ ${#RESULT} == 0 ]; then
+	echo "CRN ${OPTARG} does not exist!" && exit 999
+    fi
+}
+
+process_result () {
+    IFS=':' read -ra temp_array <<< ${RESULT}
+    IFS="," read -ra members_array <<< ${temp_array[3]}
+}
+
+prep () {
+    #temp="${1:-30821}"
+    # echo "****${temp}****"
+    CRN="c${1:-${course}}"
+    # echo "${CRN}"
+    does_crn_exist ${CRN}
+    process_result ${RESULT}
+}    
+
+student_login_ids () {
+    for ((i=1; i<=(${#members_array[@]}-1);i++))
+    do
+	echo "${members_array[${i}]}"
+    done
+}
+
+while getopts f: flag;
+do
+    case "${flag}" in
+	f) echo "${OPTARG}----" && filepath="${OPTARG}" ;;
+	?) printf "INVALID OPTION!\n\n     ${USAGE}\n\n" && exit;;
+    esac
+done
+shift $(( OPTIND - 1 ))   #get rid of all options
+
+grep_string=''
+prep ${1}
+for i in $(student_login_ids);do
+    if [ "${grep_string}" = "" ];
+    then
+	grep_string="${i}"
+    else
+	grep_string="${grep_string}|${i}"
+    fi
+done
+
+grep_command="grep -P '(${grep_string})'"
+last_command="last -f ${filepath} | ${grep_command}"
+eval "${last_command}"
