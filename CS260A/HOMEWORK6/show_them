@@ -62,7 +62,7 @@ student_login_ids () {
 while getopts f: flag;
 do
     case "${flag}" in
-	f) echo "${OPTARG}----" && filepath="${OPTARG}" ;;
+	f) filepath="${OPTARG}" ;;
 	?) printf "INVALID OPTION!\n\n     ${USAGE}\n\n" && exit;;
     esac
 done
