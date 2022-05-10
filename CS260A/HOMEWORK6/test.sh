@@ -1,0 +1,1 @@
+( show_them && echo '-------------------------' && show_them -f /var/run/utmp && echo '-------------------------' && show_them 34553 && echo '-------------------------' && show_them -f /var/run/utmp 34577 ) >output.txt
